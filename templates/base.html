@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ brand_name }}{% endblock %}</title>
+    <meta
+        name="description"
+        content="Современный сайт на Django с адаптивной главной страницей, карточками услуг и секцией контактов."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <div class="container site-header__inner">
+                <a class="site-logo" href="#home">{{ brand_name }}</a>
+                <nav class="site-nav" aria-label="Главная навигация">
+                    <a href="#services">Услуги</a>
+                    <a href="#workflow">Процесс</a>
+                    <a href="#advantages">Преимущества</a>
+                    <a href="#contacts">Контакты</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="container site-footer__inner">
+                <div>
+                    <p class="site-footer__brand">{{ brand_name }}</p>
+                    <p class="site-footer__text">Базовый Django-сайт, который можно расширять под реальный проект.</p>
+                </div>
+                <p class="site-footer__copy">© 2026 {{ brand_name }}. Сделано на Django.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
