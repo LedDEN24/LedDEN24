@@ -1,0 +1,16 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="1400" rx="48" fill="#FFF7F4"/>
+<circle cx="318" cy="338" r="138" fill="#F4C8D2"/>
+<circle cx="612" cy="254" r="128" fill="#F0AAB8"/>
+<circle cx="856" cy="378" r="150" fill="#F8D7DE"/>
+<circle cx="470" cy="518" r="146" fill="#F7B4C1"/>
+<circle cx="742" cy="544" r="132" fill="#EFA0B0"/>
+<path d="M534 1020C530 950 496 846 438 742" stroke="#86A683" stroke-width="22" stroke-linecap="round"/>
+<path d="M604 1038C604 928 596 834 582 724" stroke="#7D9A7A" stroke-width="22" stroke-linecap="round"/>
+<path d="M676 1020C692 920 730 820 790 720" stroke="#86A683" stroke-width="22" stroke-linecap="round"/>
+<path d="M744 1060L460 1060" stroke="#D9A28D" stroke-width="28" stroke-linecap="round"/>
+<path d="M402 1002L602 1264L806 1002" fill="#F7E7DC"/>
+<path d="M460 1060L602 1244L744 1060" fill="#FFF3EB"/>
+<text x="600" y="1168" text-anchor="middle" fill="#B4687B" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="700">Atrium Flowers</text>
+<text x="600" y="1248" text-anchor="middle" fill="#7E7075" font-family="Inter, Arial, sans-serif" font-size="36">Bouquet Collection</text>
+</svg>

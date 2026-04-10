@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="page-shell page-shell--wide">
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Корзина</span>
+          <h1>Ваш заказ</h1>
+          <p class="section-lead">Проверьте состав букета, количество и переходите к оформлению.</p>
+        </div>
+        <a class="btn btn-outline" href="/?cat=all">Продолжить покупки</a>
+      </div>
+
+      {% if lines %}
+        <form method="post" action="{% url 'cart_update' %}" class="stack-lg">
+          {% csrf_token %}
+
+          <div class="cart">
+            <div class="cart-list">
+              {% for line in lines %}
+                <div class="cart-row">
+                  <div class="cart-thumb">
+                    {% if line.product.image %}
+                      <img src="{{ line.product.image.url }}" alt="{{ line.product.title }}">
+                    {% elif line.product.image_url %}
+                      <img src="{{ line.product.image_url }}" alt="{{ line.product.title }}">
+                    {% else %}
+                      <div class="img-placeholder cart-thumb__placeholder">Букет</div>
+                    {% endif %}
+                  </div>
+
+                  <div>
+                    <div class="cart-title">
+                      <a href="{% url 'product_detail' line.product.slug %}">{{ line.product.title }}</a>
+                    </div>
+                    <p class="cart-note">
+                      {% if line.product.category %}{{ line.product.category.name }} · {% endif %}
+                      Собираем вручную перед отправкой
+                    </p>
+                  </div>
+
+                  <div class="qty">
+                    <label class="sr-only" for="qty_{{ line.product.slug }}">Количество</label>
+                    <input id="qty_{{ line.product.slug }}" type="number" min="0" name="qty_{{ line.product.slug }}" value="{{ line.qty }}">
+                  </div>
+
+                  <div class="price">{{ line.product.price }} ₽</div>
+
+                  <button
+                    class="icon-btn"
+                    type="submit"
+                    title="Удалить"
+                    formaction="{% url 'cart_remove' line.product.slug %}"
+                    formmethod="post"
+                  >✕</button>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="cart-footer">
+              <div class="cart-summary">
+                <div class="small">Итого по заказу</div>
+                <div class="total">{{ cart.subtotal }} ₽</div>
+              </div>
+              <div class="cart-footer__actions">
+                <button class="btn btn-outline" type="submit">Обновить корзину</button>
+                <a class="btn btn-primary" href="{% url 'checkout' %}">Перейти к оформлению</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-state__icon">🧺</div>
+          <h2>Корзина пока пуста</h2>
+          <p>Добавьте понравившиеся букеты из каталога — мы сохраним их для оформления заказа.</p>
+          <a class="btn btn-primary" href="/?cat=all">Перейти в каталог</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="1400" rx="48" fill="#FFF9FB"/>
+<circle cx="352" cy="332" r="132" fill="#EAA0B2"/>
+<circle cx="612" cy="278" r="122" fill="#F6CAD5"/>
+<circle cx="864" cy="354" r="144" fill="#D98094"/>
+<circle cx="460" cy="548" r="136" fill="#F4B0C1"/>
+<circle cx="734" cy="554" r="128" fill="#F8DDE5"/>
+<path d="M508 1028C498 932 472 842 434 760" stroke="#789670" stroke-width="22" stroke-linecap="round"/>
+<path d="M600 1046C600 932 600 824 600 716" stroke="#6D8B66" stroke-width="22" stroke-linecap="round"/>
+<path d="M692 1028C708 924 746 826 804 736" stroke="#789670" stroke-width="22" stroke-linecap="round"/>
+<path d="M760 1070L442 1070" stroke="#C98D7B" stroke-width="28" stroke-linecap="round"/>
+<path d="M436 1006L600 1260L770 1006" fill="#FAEEE8"/>
+<path d="M494 1070L600 1232L706 1070" fill="#FFF7F2"/>
+<text x="600" y="1166" text-anchor="middle" fill="#A85469" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="700">Atrium Flowers</text>
+<text x="600" y="1244" text-anchor="middle" fill="#7E7075" font-family="Inter, Arial, sans-serif" font-size="36">Romantic Mix</text>
+</svg>

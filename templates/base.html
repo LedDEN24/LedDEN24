@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}{{ site_profile.name|default:"Цветочный Atrium" }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ site_profile.description|default:'Свежие букеты, композиции и доставка цветов в день заказа.'|striptags }}{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ site_profile.name|default:'Цветочный Atrium' }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ site_profile.subtitle|default:'Свежие букеты, композиции и доставка цветов в день заказа.'|striptags }}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="theme-color" content="#f5d6dc">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  {% include "includes/header.html" %}
+  {% if messages %}
+    <div class="messages-wrap">
+      <div class="container">
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message message-{{ message.tags|default:'info' }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "includes/footer.html" %}
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/search.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

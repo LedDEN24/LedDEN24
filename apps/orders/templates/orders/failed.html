@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Оплата не завершена — {{ site_profile.name|default:"Atrium Flowers" }}{% endblock %}
+{% block content %}
+<section class="page-section page-section--compact">
+  <div class="container status-shell">
+    <div class="status-card card-soft">
+      <div class="status-icon status-icon--warning">!</div>
+      <div class="section-kicker">Платеж</div>
+      <h1 class="page-title">Оплата не завершена</h1>
+      <p class="page-subtitle">
+        Заказ <strong>#{{ order.pk }}</strong> сохранен, но платеж пока не подтвержден.
+        Статус: <strong>{{ order.payment_status }}</strong>.
+      </p>
+      <div class="status-actions">
+        <a class="btn btn-primary" href="{% url 'checkout' %}">Вернуться к оформлению</a>
+        <a class="btn btn-outline" href="{% url 'contact' %}">Связаться с менеджером</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

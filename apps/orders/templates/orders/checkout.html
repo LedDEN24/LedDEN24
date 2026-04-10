@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}Оформление заказа — {{ site_profile.name|default:"Atrium Flowers" }}{% endblock %}
+{% block content %}
+<section class="page-section page-section--compact">
+  <div class="container checkout-layout">
+    <div class="checkout-main">
+      <div class="section-kicker">Оформление</div>
+      <h1 class="page-title">Остался один шаг до красивой доставки</h1>
+      <p class="page-subtitle">
+        Укажи контакты и удобный способ доставки. После оформления мы подтвердим заказ и свяжемся с тобой.
+      </p>
+
+      <form method="post" class="checkout-form card-soft">
+        <input type="hidden" name="return_url" value="">
+        {% csrf_token %}
+
+        <div class="checkout-grid">
+          <label class="field">
+            <span class="field-label">Имя</span>
+            <input class="input" name="name" required value="{{ request.POST.name|default:'' }}" placeholder="Как к вам обращаться">
+          </label>
+
+          <label class="field">
+            <span class="field-label">Телефон</span>
+            <input class="input" name="phone" required value="{{ request.POST.phone|default:'' }}" placeholder="+7 (999) 123-45-67">
+          </label>
+
+          <label class="field field-full">
+            <span class="field-label">Адрес доставки</span>
+            <input class="input" name="address" required value="{{ request.POST.address|default:'' }}" placeholder="Улица, дом, квартира, подъезд">
+          </label>
+
+          <label class="field field-full">
+            <span class="field-label">Комментарий к заказу</span>
+            <textarea class="input input-textarea" name="comment" placeholder="Цветовая гамма, подпись на открытке, пожелания по доставке">{{ request.POST.comment|default:'' }}</textarea>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Способ доставки</span>
+            <select class="input" name="delivery_method">
+              {% if delivery_options %}
+                {% for option in delivery_options %}
+                  <option value="{{ option.id }}" {% if request.POST.delivery_method == option.id|stringformat:'s' %}selected{% endif %}>
+                    {{ option.name }} ({{ option.price }} ₽)
+                  </option>
+                {% endfor %}
+              {% else %}
+                <option value="courier">Курьером (350 ₽)</option>
+                <option value="pickup">Самовывоз (0 ₽)</option>
+              {% endif %}
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Оплата</span>
+            <select class="input" name="payment_method">
+              <option value="cash" {% if request.POST.payment_method == 'cash' %}selected{% endif %}>При получении</option>
+              <option value="online" {% if request.POST.payment_method == 'online' %}selected{% endif %}>Онлайн (ЮKassa)</option>
+            </select>
+          </label>
+
+          <label class="field field-full">
+            <span class="field-label">Тайм-слот доставки</span>
+            <select class="input" name="delivery_slot">
+              <option value="">Подберем ближайший доступный слот</option>
+              {% for slot in delivery_slots %}
+                {% if slot.is_available %}
+                  <option value="{{ slot.id }}" {% if request.POST.delivery_slot == slot.id|stringformat:'s' %}selected{% endif %}>
+                    {{ slot.label }}{% if slot.delivery_option %} — {{ slot.delivery_option.name }}{% endif %} (осталось {{ slot.remaining_capacity }})
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <span class="field-hint">Слот резервируется после создания заказа. При отмене онлайн-оплаты резерв автоматически снимается.</span>
+          </label>
+
+          <label class="field field-full">
+            <span class="field-label">Промокод</span>
+            <input class="input" name="coupon" placeholder="Напр. FLOW10" value="{{ request.POST.coupon|default:'' }}">
+          </label>
+        </div>
+
+        <div class="checkout-actions">
+          <button class="btn btn-primary" type="submit">Подтвердить заказ</button>
+          <a class="btn btn-outline" href="{% url 'cart_detail' %}">Вернуться в корзину</a>
+        </div>
+      </form>
+    </div>
+
+    <aside class="checkout-summary card-soft">
+      <div class="checkout-summary__header">
+        <div>
+          <div class="section-kicker">Ваш заказ</div>
+          <h2>Состав корзины</h2>
+        </div>
+        <span class="badge">{{ lines|length }} позиций</span>
+      </div>
+
+      <div class="checkout-items">
+        {% for line in lines %}
+          <div class="checkout-item">
+            <div>
+              <div class="checkout-item__title">{{ line.product.title }}</div>
+              <div class="checkout-item__meta">{{ line.qty }} шт. · {% if line.product.category %}{{ line.product.category.name }}{% else %}Авторская работа{% endif %}</div>
+            </div>
+            <div class="checkout-item__price">{{ line.line_total }} ₽</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="checkout-summary__totals">
+        <div class="summary-line"><span>Подытог</span><strong>{{ cart.subtotal }} ₽</strong></div>
+        <div class="summary-line"><span>Доставка</span><span>По выбранному тарифу</span></div>
+      </div>
+
+      <div class="checkout-summary__note">
+        <strong>Что дальше?</strong>
+        <p>Мы свяжемся с вами для подтверждения деталей, а при онлайн-оплате сразу откроем защищенную страницу платежа.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

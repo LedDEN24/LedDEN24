@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты — {{ site_profile.name|default:"Atrium Flowers" }}{% endblock %}
+
+{% block content %}
+<section class="contact-page">
+  <div class="container contact-page__grid">
+    <div class="section-shell contact-page__info">
+      <span class="section-badge">Контакты</span>
+      <h1>Свяжитесь с флористом и оформите заказ удобным способом</h1>
+      <p class="section-lead">
+        Подскажем по букету, соберем композицию под повод, бюджет и желаемую цветовую гамму.
+      </p>
+
+      <div class="contact-stack">
+        {% if site_profile.phone %}
+          <div class="contact-card">
+            <div class="contact-card__label">Телефон</div>
+            <a class="contact-card__value" href="tel:{{ site_profile.phone|cut:' ' }}">{{ site_profile.phone }}</a>
+            <p class="small">Принимаем звонки и сообщения каждый день.</p>
+          </div>
+        {% endif %}
+
+        {% if site_profile.address %}
+          <div class="contact-card">
+            <div class="contact-card__label">Адрес</div>
+            <div class="contact-card__value">{{ site_profile.address }}</div>
+            {% if site_profile.work_hours %}
+              <p class="small">{{ site_profile.work_hours }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="contact-links">
+        {% if site_profile.maps_url %}
+          <a class="btn btn-outline" href="{{ site_profile.maps_url }}" target="_blank" rel="noopener">Открыть карту</a>
+        {% endif %}
+        {% if site_profile.tg_url %}
+          <a class="btn btn-secondary" href="{{ site_profile.tg_url }}" target="_blank" rel="noopener">Написать в Telegram</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section-shell contact-page__form">
+      <span class="section-badge">Заявка</span>
+      <h2>Оставьте сообщение</h2>
+      <p class="small">
+        После отправки заявка сохранится в системе, и менеджер свяжется с вами для уточнения деталей.
+      </p>
+      <form method="post" class="form-grid">
+        {% csrf_token %}
+        <input name="name" placeholder="Ваше имя" class="input" />
+        <input name="phone" placeholder="Телефон" class="input" />
+        <textarea name="comment" placeholder="Какой букет нужен, на какую дату и какой бюджет?" class="input" rows="5"></textarea>
+        <button class="btn btn-primary" type="submit">Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

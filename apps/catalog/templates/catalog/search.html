@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск — {{ site_profile.name|default:"Цветочный Atrium" }}{% endblock %}
+{% block meta_description %}Найдите букеты, композиции и подарки по каталогу {{ site_profile.name|default:"цветочного магазина" }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero__inner">
+    <div>
+      <span class="eyebrow">Поиск по каталогу</span>
+      <h1>Подберите букет за пару секунд</h1>
+      {% if q %}
+        <p class="page-hero__text">Результаты по запросу <strong>{{ q }}</strong>. Если хотите, напишите флористу и мы соберем похожий букет под ваш бюджет.</p>
+      {% else %}
+        <p class="page-hero__text">Введите название цветка, оттенок или формат букета. Мы покажем подходящие позиции из витрины.</p>
+      {% endif %}
+    </div>
+    <a class="btn btn-outline" href="{% url 'contact' %}">Помощь флориста</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if products %}
+      <ul class="product-grid">
+        {% for p in products %}
+          {% include "catalog/_product_card.html" with p=p %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-card">
+        <h2>Ничего не найдено</h2>
+        <p>Попробуйте другой запрос или напишите нам: подберем похожий букет, коробку или композицию вручную.</p>
+        <div class="empty-card__actions">
+          <a class="btn btn-primary" href="/?cat=all#catalog">Открыть каталог</a>
+          <a class="btn btn-outline" href="{% url 'contact' %}">Написать флористу</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

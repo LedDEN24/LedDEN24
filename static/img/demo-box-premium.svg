@@ -1,0 +1,14 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="1400" rx="48" fill="#FFF8F6"/>
+<circle cx="378" cy="356" r="142" fill="#E28A9F"/>
+<circle cx="604" cy="260" r="136" fill="#F7D3DD"/>
+<circle cx="842" cy="356" r="146" fill="#C96B81"/>
+<circle cx="490" cy="556" r="136" fill="#F2B5C5"/>
+<circle cx="714" cy="556" r="136" fill="#E7A0B2"/>
+<rect x="332" y="752" width="536" height="356" rx="44" fill="#2F2A2D"/>
+<rect x="364" y="786" width="472" height="288" rx="32" fill="#3D363A"/>
+<path d="M602 750V1110" stroke="#E6C3A5" stroke-width="18"/>
+<path d="M346 928H858" stroke="#E6C3A5" stroke-width="18"/>
+<text x="600" y="1182" text-anchor="middle" fill="#A85469" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="700">Atrium Flowers</text>
+<text x="600" y="1260" text-anchor="middle" fill="#7E7075" font-family="Inter, Arial, sans-serif" font-size="36">Flower Box Premium</text>
+</svg>
