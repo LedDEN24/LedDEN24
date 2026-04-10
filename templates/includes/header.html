@@ -2,10 +2,10 @@
 <header class="main-header">
   <div class="container header-row">
     <a class="logo" href="/#about">
-      <span class="logo-mark">A</span>
+      <span class="logo-mark">AF</span>
       <span class="logo-copy">
         <span class="logo-name">{{ site_profile.name|default:"Atrium Flowers" }}</span>
-        <span class="logo-tag">Свежие букеты и композиции</span>
+        <span class="logo-tag">Boutique flowers & signature arrangements</span>
       </span>
     </a>
     <button class="nav-toggle" aria-label="Открыть меню">
@@ -30,6 +30,7 @@
       <ul class="nav-actions">
         {% if site_profile.phone %}
           <li class="nav-actions__contact">
+            <span class="nav-actions__label">Бутик</span>
             <a href="tel:{{ site_profile.phone|cut:' ' }}">{{ site_profile.phone }}</a>
           </li>
         {% endif %}

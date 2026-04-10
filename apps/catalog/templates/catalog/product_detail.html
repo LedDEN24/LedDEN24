@@ -55,14 +55,15 @@
       </section>
 
       <section class="product-info-card">
+        <div class="product-signature">Signature composition</div>
         <div class="product-topline">
           <div class="product-badges">
-            {% if product.is_hit %}<span class="badge badge-hit">Хит продаж</span>{% endif %}
-            {% if product.is_new %}<span class="badge badge-new">Новинка</span>{% endif %}
+            {% if product.is_hit %}<span class="badge badge-hit">Bestseller</span>{% endif %}
+            {% if product.is_new %}<span class="badge badge-new">New arrival</span>{% endif %}
             {% if product.category %}<span class="badge badge-soft">{{ product.category.name }}</span>{% endif %}
           </div>
           <span class="product-stock {% if product.in_stock %}is-in-stock{% else %}is-out-of-stock{% endif %}">
-            {% if product.in_stock %}В наличии{% else %}Под заказ{% endif %}
+            {% if product.in_stock %}Available today{% else %}By request{% endif %}
           </span>
         </div>
 
@@ -73,18 +74,23 @@
           {{ product.description|default:"Соберем композицию аккуратно, бережно упакуем и подготовим к доставке или самовывозу."|striptags|truncatechars:180 }}
         </div>
 
+        <div class="product-service-note">
+          Собираем композицию вручную, оформляем в фирменной упаковке и передаем клиенту
+          только после финальной проверки флористом.
+        </div>
+
         <div class="product-highlights">
           <div class="product-highlight">
-            <strong>Доставка день в день</strong>
-            <span>По городу от 350 ₽</span>
+            <strong>Same-day concierge</strong>
+            <span>Доставка по городу в удобный интервал</span>
           </div>
           <div class="product-highlight">
-            <strong>Фото перед отправкой</strong>
-            <span>По запросу отправим подтверждение</span>
+            <strong>Photo approval</strong>
+            <span>Покажем композицию перед отправкой</span>
           </div>
           <div class="product-highlight">
-            <strong>Открытка в подарок</strong>
-            <span>Добавим теплые слова к букету</span>
+            <strong>Complimentary card</strong>
+            <span>Добавим персональное послание к букету</span>
           </div>
         </div>
 
@@ -100,8 +106,8 @@
         <form method="post" action="{% url 'lead_create' %}" class="lead-form product-lead-form">
           {% csrf_token %}
           <input type="hidden" name="product_slug" value="{{ product.slug }}">
-          <div class="section-kicker">Быстрая заявка</div>
-          <h2>Поможем подобрать оформление и доставку</h2>
+          <div class="section-kicker">Private consultation</div>
+          <h2>Поможем подобрать оформление, упаковку и время вручения</h2>
           <div class="lead-grid">
             <input class="input" name="name" placeholder="Ваше имя">
             <input class="input" name="phone" placeholder="Телефон">

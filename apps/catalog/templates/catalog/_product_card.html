@@ -11,8 +11,8 @@
 
   <div class="product-card__body">
     <div class="badges">
-      {% if p.is_hit %}<span class="badge badge-hit">Хит</span>{% endif %}
-      {% if p.is_new %}<span class="badge badge-new">Новинка</span>{% endif %}
+      {% if p.is_hit %}<span class="badge badge-hit">Signature</span>{% endif %}
+      {% if p.is_new %}<span class="badge badge-new">New</span>{% endif %}
       {% if not p.in_stock %}<span class="badge badge-muted">Под заказ</span>{% endif %}
     </div>
 
@@ -25,18 +25,19 @@
         {% if p.description %}
           {{ p.description|striptags|truncatechars:96 }}
         {% else %}
-          Авторская композиция из свежих цветов с бережной сборкой и стильной упаковкой.
+          Авторская композиция из свежих цветов с деликатной сборкой и премиальной подачей.
         {% endif %}
       </p>
     </div>
 
     <div class="product-card__footer">
       <p class="price">{{ p.price }} ₽</p>
+      <p class="product-card__note">Фирменная упаковка и открытка по запросу</p>
       <form method="post" action="{% url 'cart_add' slug=p.slug %}" class="product-card__actions">
         {% csrf_token %}
         <input type="hidden" name="qty" value="1">
         <button class="btn btn-primary" type="submit">В корзину</button>
-        <a class="btn btn-outline" href="{% url 'product_detail' slug=p.slug %}">Подробнее</a>
+        <a class="btn btn-outline" href="{% url 'product_detail' slug=p.slug %}">Карточка</a>
       </form>
     </div>
   </div>
