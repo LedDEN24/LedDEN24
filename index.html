@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RF Open Source Due Diligence Desk</title>
+    <meta
+      name="description"
+      content="Безопасный OSINT-деск для проверки компаний и ИП РФ по открытым источникам: реестры, контрагентский комплаенс и нейтральный дашборд."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <noscript>
+      <div class="noscript-banner">
+        Для работы приложения включите JavaScript в браузере.
+      </div>
+    </noscript>
+
+    <header class="page-header">
+      <div class="wrap hero">
+        <div class="hero-copy">
+          <p class="eyebrow">OSINT для компаний и ИП РФ</p>
+          <h1>RF Open Source Due Diligence Desk</h1>
+          <p class="lede">
+            Одностраничное веб-приложение для проверки контрагентов по
+            официальным и публичным источникам, оценки risk flags и сборки
+            нейтрального отчета без профилирования частных лиц.
+          </p>
+          <div class="warning-banner">
+            Приложение не предназначено для проверки частных лиц и не должно
+            использоваться для составления досье на людей.
+          </div>
+        </div>
+
+        <div class="hero-metrics">
+          <article class="metric-card">
+            <span class="metric-number" id="metric-recommended">0</span>
+            <span class="metric-label">рекомендованных источников</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-number" id="metric-completed">0</span>
+            <span class="metric-label">просмотрено по кейсу</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-number" id="metric-risk">0</span>
+            <span class="metric-label">риск-балл</span>
+          </article>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page-content">
+      <section class="panel panel-intake">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Входные данные</p>
+            <h2>1. Карточка объекта проверки</h2>
+            <p class="section-copy">
+              Укажите идентификаторы компании или ИП, чтобы получить маршрут по
+              открытым источникам и шаблон нейтрального отчета.
+            </p>
+          </div>
+        </div>
+
+        <form id="profile-form" class="profile-form" autocomplete="off">
+          <label class="field">
+            <span>Тип объекта</span>
+            <select id="subjectType" name="subjectType">
+              <option value="company">Юридическое лицо</option>
+              <option value="ip">Индивидуальный предприниматель</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Наименование / ФИО ИП</span>
+            <input
+              id="entityName"
+              name="entityName"
+              type="text"
+              placeholder="ООО Пример / Иванов И.И."
+            />
+          </label>
+
+          <label class="field">
+            <span>ИНН</span>
+            <input id="inn" name="inn" type="text" inputmode="numeric" />
+          </label>
+
+          <label class="field">
+            <span>ОГРН / ОГРНИП</span>
+            <input id="ogrn" name="ogrn" type="text" inputmode="numeric" />
+          </label>
+
+          <label class="field">
+            <span>Домен компании</span>
+            <input
+              id="domain"
+              name="domain"
+              type="text"
+              placeholder="example.ru"
+            />
+          </label>
+
+          <label class="field">
+            <span>Телефон организации</span>
+            <input
+              id="orgPhone"
+              name="orgPhone"
+              type="text"
+              placeholder="+7 (495) 000-00-00"
+            />
+          </label>
+
+          <label class="field">
+            <span>Регион поиска</span>
+            <input
+              id="region"
+              name="region"
+              type="text"
+              placeholder="Москва / Санкт-Петербург / РФ"
+            />
+          </label>
+
+          <label class="field">
+            <span>Отрасль / ОКВЭД</span>
+            <input
+              id="sector"
+              name="sector"
+              type="text"
+              placeholder="Строительство / 62.01"
+            />
+          </label>
+
+          <label class="field">
+            <span>Регуляторный профиль</span>
+            <select id="regulatoryProfile" name="regulatoryProfile">
+              <option value="general">Общий профиль</option>
+              <option value="licensed">Лицензируемая деятельность</option>
+              <option value="finance">Финансовая организация</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Глубина проверки</span>
+            <select id="stage" name="stage">
+              <option value="express">Экспресс</option>
+              <option value="standard">Стандарт</option>
+              <option value="deep">Углубленная</option>
+            </select>
+          </label>
+        </form>
+
+        <div class="intake-grid">
+          <article class="subpanel">
+            <div class="subpanel-header">
+              <div>
+                <p class="eyebrow">Пункт 1</p>
+                <h3>Маршрут по открытым источникам</h3>
+              </div>
+            </div>
+            <ol id="workflow-list" class="workflow-list"></ol>
+          </article>
+
+          <article class="subpanel">
+            <div class="subpanel-header">
+              <div>
+                <p class="eyebrow">Оперативная сводка</p>
+                <h3>Шаблон нейтрального брифа</h3>
+              </div>
+              <div class="action-row">
+                <button id="copy-briefing" class="button" type="button">
+                  Скопировать
+                </button>
+                <button id="download-briefing" class="button ghost" type="button">
+                  Скачать .md
+                </button>
+              </div>
+            </div>
+            <div id="briefing-card" class="briefing-card"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading section-heading-split">
+          <div>
+            <p class="eyebrow">Пункт 1</p>
+            <h2>2. Библиотека открытых источников для компаний и ИП</h2>
+            <p class="section-copy">
+              Каталог официальных и публичных источников с фильтрами по
+              категориям, типу объекта и глубине проверки.
+            </p>
+          </div>
+
+          <div class="toolbar">
+            <input
+              id="source-search"
+              class="search-input"
+              type="search"
+              placeholder="Поиск по названию, категории или описанию"
+            />
+
+            <select id="category-filter" class="toolbar-select">
+              <option value="all">Все категории</option>
+              <option value="registration">Регистрация</option>
+              <option value="disclosure">Раскрытие и банкротство</option>
+              <option value="finance">Финансы</option>
+              <option value="litigation">Суды</option>
+              <option value="enforcement">Исполнительные производства</option>
+              <option value="procurement">Закупки</option>
+              <option value="supervision">Надзор и проверки</option>
+              <option value="licensing">Лицензии и аккредитация</option>
+              <option value="sanctions">Санкции</option>
+              <option value="digital">Цифровой след</option>
+              <option value="media">Медиа</option>
+            </select>
+
+            <label class="toggle">
+              <input id="official-only" type="checkbox" />
+              <span>Только официальные</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="source-stats" class="info-strip"></div>
+        <div id="source-grid" class="source-grid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Пункт 2</p>
+            <h2>3. Контрагентский комплаенс</h2>
+            <p class="section-copy">
+              Отмечайте наблюдения из реестров и получайте суммарный risk score,
+              ключевые флаги и рекомендуемые дальнейшие действия.
+            </p>
+          </div>
+        </div>
+
+        <div class="compliance-layout">
+          <div id="risk-list" class="risk-list"></div>
+
+          <aside class="risk-summary">
+            <div id="risk-badge" class="risk-badge risk-low">
+              <span class="risk-score-label">Risk score</span>
+              <span id="risk-score" class="risk-score">0</span>
+            </div>
+
+            <div class="summary-block">
+              <h3>Уровень риска</h3>
+              <p id="risk-level" class="risk-level">Низкий</p>
+              <p id="risk-explainer" class="muted-copy">
+                Отмеченные признаки пока не указывают на существенные red flags.
+              </p>
+            </div>
+
+            <div class="summary-block">
+              <h3>Ключевые risk flags</h3>
+              <ul id="risk-flags" class="bullet-list"></ul>
+            </div>
+
+            <div class="summary-block">
+              <h3>Рекомендуемые действия</h3>
+              <ul id="risk-actions" class="bullet-list"></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Пункт 3</p>
+            <h2>4. Нейтральный OSINT-дашборд и отчет</h2>
+            <p class="section-copy">
+              Отмечайте просмотренные источники, ведите заметки и экспортируйте
+              нейтральный отчет для внутренней проверки контрагента.
+            </p>
+          </div>
+        </div>
+
+        <div class="dashboard-layout">
+          <div id="dashboard-board" class="dashboard-board"></div>
+
+          <div class="report-panel">
+            <label class="field textarea-field">
+              <span>Цель проверки</span>
+              <textarea
+                id="case-goal"
+                rows="3"
+                placeholder="Проверка благонадежности нового контрагента перед заключением договора."
+              ></textarea>
+            </label>
+
+            <label class="field textarea-field">
+              <span>Подтвержденные факты из открытых источников</span>
+              <textarea
+                id="confirmed-facts"
+                rows="5"
+                placeholder="Статус в ЕГРЮЛ, наличие отчетности, замечания по Федресурсу, судебные споры."
+              ></textarea>
+            </label>
+
+            <label class="field textarea-field">
+              <span>Нейтральное заключение</span>
+              <textarea
+                id="conclusion"
+                rows="4"
+                placeholder="Сформулируйте вывод без оценочных суждений и без данных о частных лицах."
+              ></textarea>
+            </label>
+
+            <label class="field textarea-field">
+              <span>Следующие шаги</span>
+              <textarea
+                id="next-steps"
+                rows="4"
+                placeholder="Запросить документы, проверить лицензию, запросить пояснения по судебному спору."
+              ></textarea>
+            </label>
+
+            <div class="action-row">
+              <button id="copy-report" class="button" type="button">
+                Скопировать отчет
+              </button>
+              <button id="download-json" class="button ghost" type="button">
+                Скачать JSON
+              </button>
+              <button id="reset-state" class="button subtle" type="button">
+                Сбросить локальные данные
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="wrap footer-content">
+        <p>
+          Приложение использует только локальное хранение в браузере и не
+          отправляет введенные данные на сервер.
+        </p>
+        <p>
+          Перед автоматизацией запросов к реестрам проверьте условия
+          использования источников и ограничения по персональным данным.
+        </p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
