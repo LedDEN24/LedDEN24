@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloomWOW — цветочный магазин в стиле маркетплейса</title>
+    <meta
+      name="description"
+      content="BloomWOW — современный магазин букетов и подарков с быстрой доставкой, подборками и локальными флористами."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="promo-bar">
+        <p>Доставка за 90 минут, открытки в подарок и локальные флористы в одном каталоге</p>
+        <button class="promo-bar__pill" type="button">Flowwow-inspired concept</button>
+      </div>
+
+      <header class="header">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">✿</div>
+          <div>
+            <p class="brand__eyebrow">Маркетплейс авторских букетов</p>
+            <a class="brand__title" href="#top">BloomWOW</a>
+          </div>
+        </div>
+
+        <div class="header__meta">
+          <div class="meta-badge">
+            <span aria-hidden="true">📍</span>
+            <span>Москва, доставка сегодня</span>
+          </div>
+          <div class="meta-badge">
+            <span aria-hidden="true">⭐</span>
+            <span>4.9 средний рейтинг флористов</span>
+          </div>
+        </div>
+
+        <div class="header__tools">
+          <label class="search-box" for="searchInput">
+            <span aria-hidden="true">🔎</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Найти букет, цветок, набор или магазин"
+            />
+          </label>
+          <button class="toggle-button" id="sameDayToggle" type="button">
+            Только доставка сегодня
+          </button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <main class="content">
+          <section class="hero" id="top">
+            <div class="hero__content">
+              <span class="section-label">Цветы, подарки и настроение</span>
+              <h1>Цветочный магазин по концепту Flowwow — быстро, красиво и с витриной локальных флористов</h1>
+              <p class="hero__lead">
+                Подберите букет под повод, стиль и бюджет: от нежных монобукетов до подарочных сетов с десертами,
+                свечами и открытками.
+              </p>
+
+              <div class="hero__actions">
+                <a class="button button--primary" href="#catalog">Выбрать букет</a>
+                <a class="button button--secondary" href="#shops">Посмотреть флористов</a>
+              </div>
+
+              <ul class="hero__benefits">
+                <li>
+                  <strong>90 мин</strong>
+                  <span>средняя скорость доставки по городу</span>
+                </li>
+                <li>
+                  <strong>1200+</strong>
+                  <span>собранных заказов у лучших студий</span>
+                </li>
+                <li>
+                  <strong>7 дней</strong>
+                  <span>поддержка и помощь с подбором композиции</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="hero__spotlight">
+              <div class="hero-card hero-card--large">
+                <p class="hero-card__eyebrow">Самая популярная подборка</p>
+                <h2>Пионовидные розы и ранункулюсы</h2>
+                <p>Нежные оттенки, ленты, открытка и бережная сборка от локальных студий.</p>
+                <div class="hero-card__badges">
+                  <span>Бестселлер</span>
+                  <span>Премиум упаковка</span>
+                </div>
+              </div>
+
+              <div class="hero-mini-grid" id="heroSpotlight"></div>
+            </div>
+          </section>
+
+          <section class="stories-section">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">Быстрый выбор</span>
+                <h2>Популярные сценарии покупки</h2>
+              </div>
+            </div>
+            <div class="stories" id="storyButtons">
+              <button class="story-card" data-category="spring" type="button">
+                <span class="story-card__icon">🌷</span>
+                <span>Весенний сюрприз</span>
+              </button>
+              <button class="story-card" data-category="gift" type="button">
+                <span class="story-card__icon">🎁</span>
+                <span>Цветы + подарок</span>
+              </button>
+              <button class="story-card" data-category="mono" type="button">
+                <span class="story-card__icon">💐</span>
+                <span>Монобукеты</span>
+              </button>
+              <button class="story-card" data-category="roses" type="button">
+                <span class="story-card__icon">🌹</span>
+                <span>Классика с розами</span>
+              </button>
+              <button class="story-card" data-category="wedding" type="button">
+                <span class="story-card__icon">✨</span>
+                <span>Нежные для события</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="categories-section">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">Каталог по настроению</span>
+                <h2>Подберите букет под повод</h2>
+                <p>Логика витрины вдохновлена маркетплейсами цветов: быстрые категории, понятные карточки и фильтры.</p>
+              </div>
+            </div>
+            <div class="category-grid" id="categoryGrid"></div>
+          </section>
+
+          <section class="catalog-section" id="catalog">
+            <div class="section-heading section-heading--wide">
+              <div>
+                <span class="section-label">Витрина букетов</span>
+                <h2>Хиты дня и авторские композиции</h2>
+                <p id="catalogSummary">Подбираем букет...</p>
+              </div>
+
+              <div class="catalog-controls">
+                <div class="chip-group" id="chipFilters"></div>
+                <label class="sort-control" for="sortSelect">
+                  <span>Сортировка</span>
+                  <select id="sortSelect">
+                    <option value="popular">Сначала популярные</option>
+                    <option value="priceAsc">Сначала дешевле</option>
+                    <option value="priceDesc">Сначала дороже</option>
+                    <option value="rating">По рейтингу</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+          </section>
+
+          <section class="feature-strip">
+            <article class="feature-card">
+              <span>🛍️</span>
+              <h3>Маркетплейс локальных студий</h3>
+              <p>У каждого флориста собственный стиль, рейтинг и скорость сборки заказа.</p>
+            </article>
+            <article class="feature-card">
+              <span>🚚</span>
+              <h3>Доставка и слоты</h3>
+              <p>Доступны срочная доставка, утренние интервалы и вечерние сюрпризы.</p>
+            </article>
+            <article class="feature-card">
+              <span>🎀</span>
+              <h3>Дополнения к заказу</h3>
+              <p>Можно добавить открытку, свечу, шоколад или набор для свидания.</p>
+            </article>
+          </section>
+
+          <section class="shops-section" id="shops">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">Флористы</span>
+                <h2>Магазины, которые собирают композиции вручную</h2>
+              </div>
+            </div>
+            <div class="shops-grid" id="shopGrid"></div>
+          </section>
+
+          <section class="reviews-section">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">Отзывы</span>
+                <h2>Покупатели возвращаются за эмоциями</h2>
+              </div>
+            </div>
+            <div class="reviews-grid" id="reviewGrid"></div>
+          </section>
+
+          <section class="cta-section">
+            <div class="cta-section__content">
+              <span class="section-label">Подписка на настроение</span>
+              <h2>Получайте свежие подборки цветов и подарков каждую неделю</h2>
+              <p>Добавили форму как часть e-commerce сценария: сбор лидов, подписка на акции и тематические подборки.</p>
+            </div>
+            <form class="cta-form">
+              <label class="search-box" for="emailInput">
+                <span aria-hidden="true">✉️</span>
+                <input id="emailInput" type="email" placeholder="Ваш email" />
+              </label>
+              <button class="button button--primary" type="button">Подписаться</button>
+            </form>
+          </section>
+        </main>
+
+        <aside class="cart-panel">
+          <div class="cart-panel__sticky">
+            <div class="cart-panel__header">
+              <div>
+                <span class="section-label">Корзина</span>
+                <h2>Ваш заказ</h2>
+              </div>
+              <span class="cart-count" id="cartCount">0 позиций</span>
+            </div>
+
+            <div class="delivery-options">
+              <button class="delivery-option is-active" data-delivery="today" type="button">
+                Сегодня
+              </button>
+              <button class="delivery-option" data-delivery="morning" type="button">
+                Утром
+              </button>
+              <button class="delivery-option" data-delivery="surprise" type="button">
+                Сюрприз
+              </button>
+            </div>
+
+            <div class="cart-items" id="cartItems"></div>
+
+            <div class="cart-summary">
+              <div class="cart-summary__row">
+                <span>Товары</span>
+                <strong id="subtotalValue">0 ₽</strong>
+              </div>
+              <div class="cart-summary__row">
+                <span>Доставка</span>
+                <strong id="deliveryValue">0 ₽</strong>
+              </div>
+              <div class="cart-summary__row">
+                <span>Сервис и открытка</span>
+                <strong id="serviceValue">0 ₽</strong>
+              </div>
+              <div class="cart-summary__divider"></div>
+              <div class="cart-summary__row cart-summary__row--total">
+                <span>Итого</span>
+                <strong id="totalValue">0 ₽</strong>
+              </div>
+            </div>
+
+            <button class="button button--primary button--full" type="button">Оформить заказ</button>
+            <p class="cart-panel__footnote">В стоимость входит фирменная открытка и бережная упаковка.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
