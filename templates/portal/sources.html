@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Официальные источники — Legal Checks RF{% endblock %}
+
+{% block content %}
+    <section class="card">
+        <p class="eyebrow">Каталог источников</p>
+        <h1>Официальные источники для законных проверок</h1>
+        <p class="lead">
+            Здесь собраны только первичные официальные ресурсы. Для кредитной истории отдельно отмечен закрытый
+            правовой режим доступа.
+        </p>
+
+        <div class="callout">
+            <strong>JSON API:</strong>
+            <a href="{% url 'portal:sources-api' %}">{% url 'portal:sources-api' %}</a>
+        </div>
+    </section>
+
+    <section class="card">
+        <p class="eyebrow">Правила использования</p>
+        <ul class="bullet-list">
+            {% for rule in rules_of_use %}
+                <li>{{ rule }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="sources-grid">
+        {% for source in sources %}
+            <article class="card source-card">
+                <div class="source-card-header">
+                    <div>
+                        <p class="eyebrow">{{ source.type }}</p>
+                        <h2>{{ source.name }}</h2>
+                    </div>
+                </div>
+
+                <p>{{ source.purpose }}</p>
+
+                <div class="meta-block">
+                    <span class="meta-label">Основной URL</span>
+                    <a href="{{ source.url }}" target="_blank" rel="noreferrer">{{ source.url }}</a>
+                </div>
+
+                {% if source.secondary_url %}
+                    <div class="meta-block">
+                        <span class="meta-label">Дополнительный URL</span>
+                        <a href="{{ source.secondary_url }}" target="_blank" rel="noreferrer">{{ source.secondary_url }}</a>
+                    </div>
+                {% endif %}
+
+                <div class="meta-block">
+                    <span class="meta-label">Поля поиска</span>
+                    <ul class="tag-list">
+                        {% for field in source.search_fields %}
+                            <li>{{ field }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="meta-block">
+                    <span class="meta-label">Комментарий</span>
+                    <p>{{ source.access_notes }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}

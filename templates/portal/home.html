@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Legal Checks RF — легальные проверки по РФ{% endblock %}
+
+{% block content %}
+    <section class="hero card">
+        <p class="eyebrow">Django-проект</p>
+        <h1>Легальные проверки по РФ без серых баз и без несанкционированного доступа к данным</h1>
+        <p class="lead">
+            Сайт собирает в одном месте официальные реестры, чеклисты самопроверки, сценарий проверки третьего лица
+            по согласию и шаблоны внутренних документов.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Проект</span>
+                <strong>{{ project }}</strong>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Версия</span>
+                <strong>{{ version }}</strong>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Обновлено</span>
+                <strong>{{ updated_at }}</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Структура</p>
+                <h2>Что есть в проекте</h2>
+            </div>
+        </div>
+
+        {% for section in document_sections %}
+            <div class="document-group">
+                <h3>{{ section.title }}</h3>
+                <div class="card-grid">
+                    {% for item in section.documents %}
+                        <article class="mini-card">
+                            <h4>{{ item.title }}</h4>
+                            <p>{{ item.summary }}</p>
+                            <a class="text-link" href="{% url 'portal:document-detail' item.slug %}">
+                                Открыть документ
+                            </a>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section class="split-grid">
+        <article class="card">
+            <p class="eyebrow">Правила использования</p>
+            <h2>Минимальные принципы</h2>
+            <ul class="bullet-list">
+                {% for rule in rules_of_use %}
+                    <li>{{ rule }}</li>
+                {% endfor %}
+            </ul>
+        </article>
+
+        <article class="card">
+            <p class="eyebrow">Источники</p>
+            <h2>Ключевые официальные реестры</h2>
+            <div class="source-preview-list">
+                {% for source in sources_preview %}
+                    <div class="source-preview-item">
+                        <h3>{{ source.name }}</h3>
+                        <p>{{ source.purpose }}</p>
+                        <a class="text-link" href="{{ source.url }}" target="_blank" rel="noreferrer">
+                            Перейти на источник
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="button-link" href="{% url 'portal:sources' %}">Смотреть все источники</a>
+        </article>
+    </section>
+{% endblock %}

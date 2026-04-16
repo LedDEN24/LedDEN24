@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ document.title }} — Legal Checks RF{% endblock %}
+
+{% block content %}
+    <article class="card document-card">
+        <p class="eyebrow">{{ document.category_title }}</p>
+        <h1>{{ document.title }}</h1>
+        <p class="lead">{{ document.summary }}</p>
+        <div class="document-body">
+            {{ html_content }}
+        </div>
+    </article>
+{% endblock %}

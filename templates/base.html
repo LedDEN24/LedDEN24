@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Legal Checks RF{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'portal/site.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell header-inner">
+            <a class="brand" href="{% url 'portal:home' %}">Legal Checks RF</a>
+            <nav class="top-nav">
+                <a href="{% url 'portal:home' %}">Главная</a>
+                <a href="{% url 'portal:sources' %}">Источники</a>
+                <a href="{% url 'portal:sources-api' %}">JSON API</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="shell layout">
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h2>Навигация</h2>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'portal:home' %}">Обзор проекта</a></li>
+                    <li><a href="{% url 'portal:sources' %}">Официальные источники</a></li>
+                </ul>
+            </div>
+
+            {% for section in document_sections %}
+                <div class="sidebar-card">
+                    <h2>{{ section.title }}</h2>
+                    <ul class="sidebar-links">
+                        {% for item in section.documents %}
+                            <li>
+                                <a href="{% url 'portal:document-detail' item.slug %}">{{ item.nav_label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+
+            <div class="sidebar-card accent-card">
+                <p class="eyebrow">Контур проекта</p>
+                <p class="sidebar-metric">{{ sources_count }}</p>
+                <p class="muted">официальных источников в каталоге</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
