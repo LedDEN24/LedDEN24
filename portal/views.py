@@ -7,11 +7,9 @@ from .content import get_document, get_document_sections, get_sources_payload
 from .forms import DemoRequestForm
 from .marketing import (
     DEMO_BENEFITS,
-    HERO_INTERFACE_MOCKUPS,
     LEGAL_OPERATOR,
     LEGAL_PAGES,
     PRICING_PLANS,
-    TRUST_MARKERS,
 )
 
 
@@ -21,8 +19,6 @@ def _marketing_context() -> dict[str, object]:
         "company": LEGAL_OPERATOR,
         "legal_pages": LEGAL_PAGES,
         "demo_benefits": DEMO_BENEFITS,
-        "trust_markers": TRUST_MARKERS,
-        "hero_interface_mockups": HERO_INTERFACE_MOCKUPS,
     }
 
 
