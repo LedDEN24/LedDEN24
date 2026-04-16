@@ -236,23 +236,23 @@
 
             <div class="tariff-grid">
                 {% for plan in tariff_plans %}
-                    <article class="tariff-card{% if plan.highlighted %} tariff-card-highlighted{% endif %}">
+                    <article class="tariff-card{% if plan.highlight %} tariff-card-highlighted{% endif %}">
                         <div class="tariff-header">
-                            <p class="eyebrow">{{ plan.label }}</p>
+                            <p class="eyebrow">{{ plan.billing }}</p>
                             <h3>{{ plan.name }}</h3>
                             <p>{{ plan.description }}</p>
                         </div>
                         <div class="tariff-price-block">
                             <strong>{{ plan.price }}</strong>
-                            <span>{{ plan.period }}</span>
+                            <span>{{ plan.billing }}</span>
                         </div>
                         <ul class="tariff-feature-list">
                             {% for item in plan.features %}
                                 <li>{{ item }}</li>
                             {% endfor %}
                         </ul>
-                        <a class="{% if plan.highlighted %}button-link{% else %}ghost-link ghost-link-dark{% endif %}" href="{% url 'portal:demo-request' %}">
-                            {{ plan.cta }}
+                        <a class="{% if plan.highlight %}button-link{% else %}ghost-link ghost-link-dark{% endif %}" href="{% url 'portal:demo-request' %}">
+                            {{ plan.cta_label }}
                         </a>
                     </article>
                 {% endfor %}

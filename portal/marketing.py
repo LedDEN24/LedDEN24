@@ -1,5 +1,6 @@
 LEGAL_OPERATOR = {
     "name": "Legal Checks RF Demo Project",
+    "inn": "0000000000",
     "email": "demo@example.com",
     "phone": "+7 (900) 000-00-00",
     "address": "Удаленный проект, Россия",
@@ -77,6 +78,9 @@ TARIFF_PLANS = [
         "highlight": False,
     },
 ]
+
+# Keep both names available while templates/views converge on one naming scheme.
+PRICING_PLANS = TARIFF_PLANS
 
 TARIFF_COMPARISON = [
     {

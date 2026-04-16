@@ -8,9 +8,9 @@ app_name = "portal"
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("demo/", views.request_demo, name="demo-request"),
+    path("demo/", views.demo_request, name="demo-request"),
     path("tariffs/", views.tariffs, name="tariffs"),
-    path("privacy/", views.privacy, name="privacy-policy"),
+    path("privacy/", views.privacy_policy, name="privacy-policy"),
     path("agreement-personal-data/", views.personal_data_consent, name="personal-data-consent"),
     path("contacts/", views.contacts, name="contacts"),
     path("sources/", views.sources, name="sources"),

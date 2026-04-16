@@ -9,14 +9,14 @@ from .marketing import (
     DEMO_BENEFITS,
     LEGAL_OPERATOR,
     AGREEMENT_PAGE,
-    PRICING_PLANS,
+    TARIFF_PLANS,
     PRIVACY_PAGE,
 )
 
 
 def _marketing_context() -> dict[str, object]:
     return {
-        "pricing_plans": PRICING_PLANS,
+        "pricing_plans": TARIFF_PLANS,
         "company": LEGAL_OPERATOR,
         "demo_benefits": DEMO_BENEFITS,
     }
@@ -101,6 +101,7 @@ def home(request):
         "hero_points": hero_points,
         "feature_blocks": feature_blocks,
         "trust_highlights": trust_highlights,
+        "tariff_plans": TARIFF_PLANS,
         "demo_form": DemoRequestForm(),
     }
     return render(request, "portal/home.html", context)
