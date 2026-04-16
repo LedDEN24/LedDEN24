@@ -8,8 +8,9 @@ from .forms import DemoRequestForm
 from .marketing import (
     DEMO_BENEFITS,
     LEGAL_OPERATOR,
-    LEGAL_PAGES,
+    AGREEMENT_PAGE,
     PRICING_PLANS,
+    PRIVACY_PAGE,
 )
 
 
@@ -17,7 +18,6 @@ def _marketing_context() -> dict[str, object]:
     return {
         "pricing_plans": PRICING_PLANS,
         "company": LEGAL_OPERATOR,
-        "legal_pages": LEGAL_PAGES,
         "demo_benefits": DEMO_BENEFITS,
     }
 
@@ -136,7 +136,7 @@ def tariffs(request):
 def privacy_policy(request):
     context = {
         **_base_context(),
-        "page": LEGAL_PAGES["privacy"],
+        "page": PRIVACY_PAGE,
     }
     return render(request, "portal/marketing/privacy.html", context)
 
@@ -144,7 +144,7 @@ def privacy_policy(request):
 def personal_data_consent(request):
     context = {
         **_base_context(),
-        "page": LEGAL_PAGES["consent"],
+        "page": AGREEMENT_PAGE,
     }
     return render(request, "portal/marketing/personal_data_consent.html", context)
 
