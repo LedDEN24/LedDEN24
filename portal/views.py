@@ -6,9 +6,9 @@ from django.urls import reverse
 from .content import get_document, get_document_sections, get_sources_payload
 from .forms import DemoRequestForm
 from .marketing import (
-    CONTACT_DETAILS,
     DEMO_BENEFITS,
     HERO_INTERFACE_MOCKUPS,
+    LEGAL_OPERATOR,
     LEGAL_PAGES,
     PRICING_PLANS,
     TRUST_MARKERS,
@@ -18,7 +18,7 @@ from .marketing import (
 def _marketing_context() -> dict[str, object]:
     return {
         "pricing_plans": PRICING_PLANS,
-        "contact_details": CONTACT_DETAILS,
+        "company": LEGAL_OPERATOR,
         "legal_pages": LEGAL_PAGES,
         "demo_benefits": DEMO_BENEFITS,
         "trust_markers": TRUST_MARKERS,

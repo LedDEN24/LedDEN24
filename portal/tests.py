@@ -41,7 +41,7 @@ class PortalViewsTests(TestCase):
         page_expectations = [
             ("portal:demo-request", "Запросить демо"),
             ("portal:tariffs", "Пакеты для демо"),
-            ("portal:privacy", "Политика"),
+            ("portal:privacy-policy", "Политика"),
             ("portal:personal-data-consent", "Согласие"),
             ("portal:contacts", "Связаться"),
         ]
@@ -60,8 +60,7 @@ class PortalViewsTests(TestCase):
                 "email": "ivan@example.com",
                 "phone": "+7 (900) 123-45-67",
                 "company": "ООО Ромашка",
-                "team_size": "11-50",
-                "needs": "Проверка контрагентов",
+                "role": "Юрист",
                 "message": "Нужна демонстрация тарифов и demo-flow.",
                 "agree": "on",
             },
@@ -75,7 +74,7 @@ class PortalViewsTests(TestCase):
         demo_request = DemoRequest.objects.get()
         self.assertEqual(demo_request.contact_name, "Иван Петров")
         self.assertEqual(demo_request.email, "ivan@example.com")
-        self.assertEqual(demo_request.team_size, "11-50")
+        self.assertEqual(demo_request.role, "Юрист")
         self.assertTrue(demo_request.agreed_to_personal_data)
 
 
