@@ -16,8 +16,11 @@
                 </p>
 
                 <div class="hero-actions">
-                    <a class="button-link button-link-light" href="{% url 'portal:sources' %}">
-                        Открыть официальные источники
+                    <a class="button-link button-link-light" href="{% url 'portal:demo-request' %}">
+                        Запросить демо
+                    </a>
+                    <a class="ghost-link" href="{% url 'portal:tariffs' %}">
+                        Смотреть тарифы
                     </a>
                     <a class="ghost-link" href="{% url 'portal:document-detail' 'self-check' %}">
                         Запустить самопроверку
@@ -76,6 +79,44 @@
                     <span class="visual-badge">Обновлено</span>
                     <strong>{{ updated_at }}</strong>
                     <p>версия {{ version }}</p>
+                </div>
+
+                <div class="visual-card visual-card-mockup">
+                    <span class="visual-tag">Интерфейс продукта</span>
+                    <div class="mockup-window">
+                        <div class="mockup-topbar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="mockup-toolbar">
+                            <div class="mockup-toolbar-title">Проверка контрагента</div>
+                            <div class="mockup-pill">demo</div>
+                        </div>
+                        <div class="mockup-grid">
+                            <div class="mockup-panel mockup-panel-wide">
+                                <span class="mockup-label">Риск-профиль</span>
+                                <strong>Средний риск</strong>
+                                <p>Исполнительные производства + арбитражная активность + банкротный контур</p>
+                            </div>
+                            <div class="mockup-panel">
+                                <span class="mockup-label">ФССП</span>
+                                <strong>3 записи</strong>
+                            </div>
+                            <div class="mockup-panel">
+                                <span class="mockup-label">Суды</span>
+                                <strong>12 дел</strong>
+                            </div>
+                            <div class="mockup-panel">
+                                <span class="mockup-label">Арбитраж</span>
+                                <strong>4 спора</strong>
+                            </div>
+                            <div class="mockup-panel">
+                                <span class="mockup-label">Банкротство</span>
+                                <strong>Нет</strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,6 +223,43 @@
         </div>
     </section>
 
+    <section class="landing-section landing-section-white">
+        <div class="shell">
+            <div class="section-intro">
+                <p class="eyebrow">Тарифы</p>
+                <h2>Три уровня подключения под пилот, команду и внутренний комплаенс</h2>
+                <p class="lead">
+                    Это демонстрационный тарифный блок для лендинга. Отдельная страница тарифов дает развернутое описание,
+                    а здесь блок нужен как маркетинговый якорь прямо на главной.
+                </p>
+            </div>
+
+            <div class="tariff-grid">
+                {% for plan in tariff_plans %}
+                    <article class="tariff-card{% if plan.highlighted %} tariff-card-highlighted{% endif %}">
+                        <div class="tariff-header">
+                            <p class="eyebrow">{{ plan.label }}</p>
+                            <h3>{{ plan.name }}</h3>
+                            <p>{{ plan.description }}</p>
+                        </div>
+                        <div class="tariff-price-block">
+                            <strong>{{ plan.price }}</strong>
+                            <span>{{ plan.period }}</span>
+                        </div>
+                        <ul class="tariff-feature-list">
+                            {% for item in plan.features %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a class="{% if plan.highlighted %}button-link{% else %}ghost-link ghost-link-dark{% endif %}" href="{% url 'portal:demo-request' %}">
+                            {{ plan.cta }}
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
     <section class="landing-section landing-section-light">
         <div class="shell">
             <div class="section-intro">
@@ -262,7 +340,8 @@
                     </p>
                 </div>
                 <div class="final-actions">
-                    <a class="button-link" href="{% url 'portal:sources' %}">Смотреть каталог источников</a>
+                    <a class="button-link" href="{% url 'portal:demo-request' %}">Запросить демо</a>
+                    <a class="ghost-link" href="{% url 'portal:tariffs' %}">Смотреть тарифы</a>
                     <a class="ghost-link" href="{% url 'portal:sources-api' %}">Открыть JSON API</a>
                 </div>
             </div>

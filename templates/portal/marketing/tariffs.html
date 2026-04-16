@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Тарифы — Legal Checks RF{% endblock %}
+
+{% block page_layout %}
+    <section class="marketing-page">
+        <div class="shell marketing-page-grid">
+            <div class="marketing-copy">
+                <p class="eyebrow">Тарифы</p>
+                <h1>Пакеты для демо, команды и комплаенс-процесса</h1>
+                <p class="lead">
+                    Это демонстрационный блок тарифов в стиле продуктового лендинга. Он помогает показать логику упаковки
+                    сервиса: от быстрого пилота до внедрения в регулярную проверку.
+                </p>
+            </div>
+
+            <div class="pricing-grid pricing-grid-page">
+                {% for plan in pricing_plans %}
+                    <article class="pricing-card {% if plan.highlight %}pricing-card-featured{% endif %}">
+                        {% if plan.highlight %}
+                            <span class="pricing-badge">Рекомендуем</span>
+                        {% endif %}
+                        <h2>{{ plan.name }}</h2>
+                        <p class="pricing-price">{{ plan.price }}</p>
+                        <p class="pricing-description">{{ plan.description }}</p>
+                        <ul class="pricing-feature-list">
+                            {% for feature in plan.features %}
+                                <li>{{ feature }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a class="button-link {% if plan.highlight %}button-link-light{% endif %}" href="{% url 'portal:demo-request' %}">
+                            Запросить демо
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

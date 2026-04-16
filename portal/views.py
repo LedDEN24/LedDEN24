@@ -1,7 +1,29 @@
+from django.contrib import messages
 from django.http import Http404, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from .content import get_document, get_document_sections, get_sources_payload
+from .forms import DemoRequestForm
+from .marketing import (
+    CONTACT_DETAILS,
+    DEMO_BENEFITS,
+    HERO_INTERFACE_MOCKUPS,
+    LEGAL_PAGES,
+    PRICING_PLANS,
+    TRUST_MARKERS,
+)
+
+
+def _marketing_context() -> dict[str, object]:
+    return {
+        "pricing_plans": PRICING_PLANS,
+        "contact_details": CONTACT_DETAILS,
+        "legal_pages": LEGAL_PAGES,
+        "demo_benefits": DEMO_BENEFITS,
+        "trust_markers": TRUST_MARKERS,
+        "hero_interface_mockups": HERO_INTERFACE_MOCKUPS,
+    }
 
 
 def _base_context() -> dict[str, object]:
@@ -9,6 +31,7 @@ def _base_context() -> dict[str, object]:
     return {
         "document_sections": get_document_sections(),
         "sources_count": len(sources_payload.get("sources", [])),
+        **_marketing_context(),
     }
 
 
@@ -82,8 +105,59 @@ def home(request):
         "hero_points": hero_points,
         "feature_blocks": feature_blocks,
         "trust_highlights": trust_highlights,
+        "demo_form": DemoRequestForm(),
     }
     return render(request, "portal/home.html", context)
+
+
+def demo_request(request):
+    success = request.GET.get("submitted") == "1"
+    form = DemoRequestForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(
+            request,
+            "Заявка принята. Демо-запрос сохранен, можно продолжать дорабатывать CRM или email-обработку позже.",
+        )
+        return redirect(f"{reverse('portal:demo-request')}?submitted=1")
+
+    context = {
+        **_base_context(),
+        "form": form,
+        "submitted": success,
+    }
+    return render(request, "portal/marketing/demo_request.html", context)
+
+
+def tariffs(request):
+    context = {
+        **_base_context(),
+    }
+    return render(request, "portal/marketing/tariffs.html", context)
+
+
+def privacy_policy(request):
+    context = {
+        **_base_context(),
+        "page": LEGAL_PAGES["privacy"],
+    }
+    return render(request, "portal/marketing/privacy.html", context)
+
+
+def personal_data_consent(request):
+    context = {
+        **_base_context(),
+        "page": LEGAL_PAGES["consent"],
+    }
+    return render(request, "portal/marketing/personal_data_consent.html", context)
+
+
+def contacts(request):
+    context = {
+        **_base_context(),
+    }
+    return render(request, "portal/marketing/contacts.html", context)
 
 
 def document_detail(request, slug: str):

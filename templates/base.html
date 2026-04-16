@@ -16,14 +16,16 @@
             </a>
             <nav class="top-nav">
                 <a href="{% url 'portal:home' %}">Главная</a>
+                <a href="{% url 'portal:tariffs' %}">Тарифы</a>
+                <a href="{% url 'portal:demo-request' %}">Запросить демо</a>
                 <a href="{% url 'portal:sources' %}">Источники</a>
                 <a href="{% url 'portal:document-detail' 'self-check' %}">Самопроверка</a>
                 <a href="{% url 'portal:document-detail' 'third-party-check' %}">Проверка по согласию</a>
             </nav>
             <div class="header-actions">
                 <a class="header-link" href="{% url 'portal:sources-api' %}">JSON API</a>
-                <a class="header-cta" href="{% url 'portal:document-detail' 'screening-request-form' %}">
-                    Карточка запуска
+                <a class="header-cta" href="{% url 'portal:demo-request' %}">
+                    Запросить демо
                 </a>
             </div>
         </div>
@@ -36,7 +38,10 @@
                     <h2>Навигация</h2>
                     <ul class="sidebar-links">
                         <li><a href="{% url 'portal:home' %}">Лендинг проекта</a></li>
+                        <li><a href="{% url 'portal:tariffs' %}">Тарифы</a></li>
+                        <li><a href="{% url 'portal:demo-request' %}">Запросить демо</a></li>
                         <li><a href="{% url 'portal:sources' %}">Официальные источники</a></li>
+                        <li><a href="{% url 'portal:contacts' %}">Контакты</a></li>
                     </ul>
                 </div>
 
@@ -81,16 +86,19 @@
                     <h3>Маршруты</h3>
                     <ul class="footer-links">
                         <li><a href="{% url 'portal:home' %}">Главная</a></li>
+                        <li><a href="{% url 'portal:tariffs' %}">Тарифы</a></li>
+                        <li><a href="{% url 'portal:demo-request' %}">Запросить демо</a></li>
                         <li><a href="{% url 'portal:sources' %}">Источники</a></li>
+                        <li><a href="{% url 'portal:contacts' %}">Контакты</a></li>
                         <li><a href="{% url 'portal:sources-api' %}">JSON API</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Ключевые документы</h3>
+                    <h3>Юридические страницы</h3>
                     <ul class="footer-links">
-                        <li><a href="{% url 'portal:document-detail' 'self-check' %}">Чеклист самопроверки</a></li>
+                        <li><a href="{% url 'portal:privacy' %}">Политика ПДн</a></li>
+                        <li><a href="{% url 'portal:personal-data-consent' %}">Согласие на обработку ПДн</a></li>
                         <li><a href="{% url 'portal:document-detail' 'open-registries-consent' %}">Согласие на реестры</a></li>
-                        <li><a href="{% url 'portal:document-detail' 'credit-report-consent' %}">Передача кредитного отчета</a></li>
                     </ul>
                 </div>
             </div>

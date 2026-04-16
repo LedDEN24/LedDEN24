@@ -1486,3 +1486,406 @@ code {
         padding: 24px;
     }
 }
+
+
+.marketing-page {
+    padding: 48px 0 72px;
+}
+
+.marketing-page-grid,
+.page-hero-grid,
+.contact-card-grid,
+.marketing-panel-grid,
+.tariff-grid,
+.pricing-grid,
+.form-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.marketing-page-grid,
+.page-hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    align-items: start;
+}
+
+.marketing-main-card,
+.marketing-side-card,
+.marketing-page-card,
+.form-card,
+.pricing-card,
+.tariff-card,
+.contact-tile,
+.policy-card,
+.legal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.marketing-main-card,
+.marketing-side-card,
+.marketing-page-card,
+.form-card,
+.policy-card,
+.legal-card {
+    padding: 28px;
+}
+
+.marketing-copy {
+    max-width: 720px;
+}
+
+.page-hero {
+    padding: 58px 0 42px;
+}
+
+.page-hero-dark {
+    background: linear-gradient(135deg, #1e2637 0%, #2f3950 100%);
+    color: #ffffff;
+}
+
+.page-hero-dark h1,
+.page-hero-dark h2,
+.page-hero-dark p,
+.page-hero-dark li {
+    color: #ffffff;
+}
+
+.visual-card-demo {
+    position: static;
+    width: auto;
+    min-height: 100%;
+}
+
+.demo-form {
+    display: grid;
+    gap: 18px;
+}
+
+.form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-field textarea,
+.form-field select,
+.form-field input[type="email"],
+.form-field input[type="text"],
+.form-field input[type="tel"] {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: #f9fbff;
+    color: var(--text);
+    font: inherit;
+}
+
+.form-field textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.form-field select {
+    appearance: none;
+}
+
+.form-field-wide {
+    grid-column: span 2;
+}
+
+.field-help,
+.field-error {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.field-help {
+    color: var(--muted);
+}
+
+.field-error {
+    color: #c0262d;
+}
+
+.has-error input,
+.has-error textarea,
+.has-error select {
+    border-color: rgba(192, 38, 45, 0.45);
+    background: #fff7f7;
+}
+
+.success-banner {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: #ecfff6;
+    border: 1px solid rgba(16, 185, 129, 0.24);
+    color: #166534;
+}
+
+.mockup-window {
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(237, 243, 255, 0.92) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    overflow: hidden;
+    color: #1f2937;
+}
+
+.mockup-topbar {
+    display: flex;
+    gap: 10px;
+    padding: 18px 18px 0;
+}
+
+.mockup-topbar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(44, 100, 234, 0.3);
+}
+
+.mockup-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px;
+}
+
+.mockup-toolbar-title {
+    font-weight: 700;
+    color: #243041;
+}
+
+.mockup-pill {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #e6f2ff;
+    color: #1f4fd4;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.mockup-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 0 18px 18px;
+}
+
+.mockup-panel {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+    border-radius: 18px;
+    background: #f8fbff;
+    border: 1px solid #dbe4f3;
+}
+
+.mockup-panel-wide {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #1f4fd4 0%, #4877ec 100%);
+    border-color: transparent;
+}
+
+.mockup-panel-wide .mockup-label,
+.mockup-panel-wide strong,
+.mockup-panel-wide p {
+    color: #ffffff;
+}
+
+.mockup-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4c5e79;
+}
+
+.mockup-panel strong {
+    font-size: 1.2rem;
+    color: #243041;
+}
+
+.mockup-panel p {
+    margin: 0;
+    color: #617084;
+    line-height: 1.55;
+}
+
+.tariff-grid,
+.pricing-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.tariff-card,
+.pricing-card {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    padding: 26px;
+}
+
+.tariff-card-highlighted,
+.pricing-card-featured {
+    background: linear-gradient(135deg, #1f2638 0%, #2f3d5b 100%);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.tariff-card-highlighted h3,
+.tariff-card-highlighted p,
+.tariff-card-highlighted li,
+.tariff-card-highlighted .tariff-price,
+.pricing-card-featured h2,
+.pricing-card-featured p,
+.pricing-card-featured li {
+    color: #ffffff;
+}
+
+.tariff-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tariff-price-block,
+.pricing-price {
+    display: grid;
+    gap: 4px;
+}
+
+.tariff-price,
+.pricing-price {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1d2b42;
+}
+
+.tariff-note,
+.pricing-description {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.tariff-feature-list,
+.pricing-feature-list {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.75;
+}
+
+.tariff-card-highlighted .tariff-note,
+.pricing-card-featured .pricing-description,
+.tariff-card-highlighted .tariff-feature-list,
+.pricing-card-featured .pricing-feature-list {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.pricing-badge,
+.tariff-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(111, 226, 223, 0.18);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ghost-link-dark {
+    color: #1d2b42;
+    border-color: rgba(31, 41, 55, 0.14);
+}
+
+.ghost-link-dark:hover {
+    color: #111827;
+}
+
+.legal-text,
+.policy-text {
+    display: grid;
+    gap: 18px;
+}
+
+.legal-text p,
+.legal-text li,
+.policy-text p,
+.policy-text li {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.contact-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contact-tile {
+    padding: 22px;
+}
+
+.contact-tile h3,
+.contact-tile p {
+    margin: 0;
+}
+
+.contact-tile p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.contact-tile-wide {
+    grid-column: span 2;
+}
+
+.marketing-panel-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.policy-card {
+    padding: 24px;
+}
+
+.policy-card h3,
+.policy-card p {
+    margin: 0;
+}
+
+.policy-card p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+@media (max-width: 1080px) {
+    .marketing-page-grid,
+    .page-hero-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .form-grid,
+    .mockup-grid,
+    .contact-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-field-wide,
+    .contact-tile-wide,
+    .mockup-panel-wide {
+        grid-column: span 1;
+    }
+}

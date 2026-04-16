@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Запросить демо — Legal Checks RF{% endblock %}
+
+{% block body_class %}marketing-page{% endblock %}
+
+{% block page_layout %}
+    <section class="page-hero page-hero-dark">
+        <div class="shell page-hero-grid">
+            <div>
+                <p class="eyebrow eyebrow-light">Демо и onboarding</p>
+                <h1>Запросить демо Legal Checks RF</h1>
+                <p class="lead lead-light">
+                    Оставьте заявку, если хотите получить демонстрацию лендинга, набора документов, витрины источников
+                    и дальнейшего развития проекта под реальный B2B-сценарий.
+                </p>
+                <ul class="hero-point-list">
+                    {% for item in demo_benefits %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="visual-card visual-card-primary visual-card-demo">
+                <span class="visual-tag">Что входит в демонстрацию</span>
+                <ul class="visual-list">
+                    <li>
+                        <strong>Продуктовый лендинг</strong>
+                        <span>Hero, тарифы, trust-блоки, CTA и связанный маршрут страниц.</span>
+                    </li>
+                    <li>
+                        <strong>Рабочий контур</strong>
+                        <span>Документы, JSON API, каталог источников и шаблоны запуска проверки.</span>
+                    </li>
+                    <li>
+                        <strong>Юридическая витрина</strong>
+                        <span>Политика ПДн, согласие, контакты и страница запроса демо.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-section landing-section-white">
+        <div class="shell split-grid split-grid-wide">
+            <article class="card form-card">
+                <p class="eyebrow">Форма заявки</p>
+                <h2>Оставьте контакт, и проект можно будет развивать как реальный маркетинговый flow</h2>
+
+                {% if submitted %}
+                    <div class="success-banner">
+                        <strong>Заявка сохранена.</strong>
+                        <span>Демо-запрос записан в базу Django и может использоваться как старт CRM-flow.</span>
+                    </div>
+                {% endif %}
+
+                <form method="post" class="demo-form">
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        {% for field in form %}
+                            <div class="form-field{% if field.errors %} has-error{% endif %}{% if field.name == 'message' or field.name == 'needs' %} form-field-wide{% endif %}">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <p class="field-help">{{ field.help_text }}</p>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <p class="field-error">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button class="button-link button-link-dark" type="submit">Отправить заявку</button>
+                </form>
+            </article>
+
+            <article class="card trust-card">
+                <p class="eyebrow">Как использовать</p>
+                <h2>Сейчас это уже рабочая форма, не просто заглушка</h2>
+                <ul class="bullet-list">
+                    <li>Данные сохраняются в модель <code>DemoRequest</code> в базе SQLite.</li>
+                    <li>Можно подключить email-уведомления, CRM или Telegram-хук следующим шагом.</li>
+                    <li>Форма уже связана с юридическими страницами и маркетинговой навигацией.</li>
+                </ul>
+                <div class="mini-actions">
+                    <a class="text-link" href="{% url 'portal:privacy' %}">Политика ПДн</a>
+                    <a class="text-link" href="{% url 'portal:personal-data-consent' %}">Согласие</a>
+                </div>
+            </article>
+        </div>
+    </section>
+{% endblock %}

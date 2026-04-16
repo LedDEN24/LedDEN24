@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты — Legal Checks RF{% endblock %}
+
+{% block page_layout %}
+    <section class="marketing-page">
+        <div class="shell marketing-page-grid">
+            <article class="card marketing-main-card">
+                <p class="eyebrow">Контакты</p>
+                <h1>Связаться по демо, интеграции или комплаенс-сценарию</h1>
+                <p class="lead">
+                    Контакты вынесены на отдельную страницу, как у типовых B2B-лендингов: один блок для коммуникации,
+                    второй — для краткой карты маршрутов сайта и рабочих ссылок.
+                </p>
+
+                <div class="contact-card-grid">
+                    <div class="contact-tile">
+                        <span class="meta-label">Email</span>
+                        <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+                    </div>
+                    <div class="contact-tile">
+                        <span class="meta-label">Телефон</span>
+                        <a href="tel:{{ company.phone|cut:' ' }}">{{ company.phone }}</a>
+                    </div>
+                    <div class="contact-tile contact-tile-wide">
+                        <span class="meta-label">Адрес</span>
+                        <p>{{ company.address }}</p>
+                    </div>
+                </div>
+
+                <div class="marketing-panel-grid">
+                    <article class="mini-card">
+                        <h3>Если нужен демо-доступ</h3>
+                        <p>Оставьте заявку на странице демо. Там уже настроена форма с фиксацией цели и согласия на обработку данных.</p>
+                        <a class="text-link" href="{% url 'portal:demo-request' %}">Перейти к демо-заявке</a>
+                    </article>
+                    <article class="mini-card">
+                        <h3>Если нужен юридический контур</h3>
+                        <p>Используйте страницы политики и согласия как отдельный правовой слой маркетингового сайта.</p>
+                        <a class="text-link" href="{% url 'portal:privacy-policy' %}">Открыть политику ПДн</a>
+                    </article>
+                </div>
+            </article>
+
+            <aside class="card marketing-side-card">
+                <p class="eyebrow">Быстрые ссылки</p>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'portal:tariffs' %}">Тарифы</a></li>
+                    <li><a href="{% url 'portal:demo-request' %}">Запросить демо</a></li>
+                    <li><a href="{% url 'portal:personal-data-consent' %}">Согласие</a></li>
+                    <li><a href="{% url 'portal:privacy-policy' %}">Политика ПДн</a></li>
+                </ul>
+
+                <div class="callout">
+                    <strong>Юр. блок:</strong> {{ company.name }}<br>
+                    ИНН {{ company.inn }}<br>
+                    {{ company.address }}
+                </div>
+            </aside>
+        </div>
+    </section>
+{% endblock %}
