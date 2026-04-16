@@ -2,83 +2,270 @@
 
 {% block title %}Legal Checks RF — легальные проверки по РФ{% endblock %}
 
-{% block content %}
-    <section class="hero card">
-        <p class="eyebrow">Django-проект</p>
-        <h1>Легальные проверки по РФ без серых баз и без несанкционированного доступа к данным</h1>
-        <p class="lead">
-            Сайт собирает в одном месте официальные реестры, чеклисты самопроверки, сценарий проверки третьего лица
-            по согласию и шаблоны внутренних документов.
-        </p>
+{% block body_class %}landing-page{% endblock %}
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-label">Проект</span>
-                <strong>{{ project }}</strong>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Версия</span>
-                <strong>{{ version }}</strong>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Обновлено</span>
-                <strong>{{ updated_at }}</strong>
-            </div>
-        </div>
-    </section>
+{% block page_layout %}
+    <section class="landing-hero">
+        <div class="shell landing-hero-grid">
+            <div class="landing-copy">
+                <p class="eyebrow eyebrow-light">Django-проект / официальный контур</p>
+                <h1>Проверка юридических и физических лиц по официальным источникам РФ</h1>
+                <p class="landing-lead">
+                    Главная страница собрана как продуктовый лендинг: с понятным оффером, витриной источников, готовыми
+                    сценариями проверки и шаблонами документов, которые можно сразу встроить в процесс.
+                </p>
 
-    <section class="card">
-        <div class="section-heading">
-            <div>
-                <p class="eyebrow">Структура</p>
-                <h2>Что есть в проекте</h2>
-            </div>
-        </div>
+                <div class="hero-actions">
+                    <a class="button-link button-link-light" href="{% url 'portal:sources' %}">
+                        Открыть официальные источники
+                    </a>
+                    <a class="ghost-link" href="{% url 'portal:document-detail' 'self-check' %}">
+                        Запустить самопроверку
+                    </a>
+                </div>
 
-        {% for section in document_sections %}
-            <div class="document-group">
-                <h3>{{ section.title }}</h3>
-                <div class="card-grid">
-                    {% for item in section.documents %}
-                        <article class="mini-card">
-                            <h4>{{ item.title }}</h4>
-                            <p>{{ item.summary }}</p>
-                            <a class="text-link" href="{% url 'portal:document-detail' item.slug %}">
-                                Открыть документ
-                            </a>
-                        </article>
+                <ul class="hero-point-list">
+                    {% for point in hero_points %}
+                        <li>{{ point }}</li>
                     {% endfor %}
+                </ul>
+
+                <div class="stats-grid landing-stats">
+                    <div class="stat-card stat-card-dark">
+                        <span class="stat-label">Источники</span>
+                        <strong>{{ sources_count }}</strong>
+                        <p>официальных реестров и процессов</p>
+                    </div>
+                    <div class="stat-card stat-card-dark">
+                        <span class="stat-label">Документы</span>
+                        <strong>{{ documents_total }}</strong>
+                        <p>готовых материалов в проекте</p>
+                    </div>
+                    <div class="stat-card stat-card-dark">
+                        <span class="stat-label">Шаблоны</span>
+                        <strong>{{ templates_total }}</strong>
+                        <p>документа для запуска проверки</p>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
+
+            <div class="landing-visual">
+                <div class="visual-card visual-card-primary">
+                    <span class="visual-tag">Официальные источники</span>
+                    <h2>В одном маршруте собраны суды, ФССП, арбитраж, банкротство и кредитный контур через БКИ</h2>
+                    <ul class="visual-list">
+                        {% for source in sources_preview %}
+                            <li>
+                                <strong>{{ source.name }}</strong>
+                                <span>{{ source.purpose }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="visual-card visual-card-secondary">
+                    <span class="visual-tag">Правила использования</span>
+                    <ul class="compact-rule-list">
+                        {% for rule in rules_of_use %}
+                            <li>{{ rule }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="visual-card visual-card-floating">
+                    <span class="visual-badge">Обновлено</span>
+                    <strong>{{ updated_at }}</strong>
+                    <p>версия {{ version }}</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="split-grid">
-        <article class="card">
-            <p class="eyebrow">Правила использования</p>
-            <h2>Минимальные принципы</h2>
-            <ul class="bullet-list">
-                {% for rule in rules_of_use %}
-                    <li>{{ rule }}</li>
-                {% endfor %}
-            </ul>
-        </article>
+    <section class="landing-section landing-section-white">
+        <div class="shell">
+            <div class="section-intro">
+                <p class="eyebrow">Возможности</p>
+                <h2>Что входит в лендинг и рабочий контур проекта</h2>
+                <p class="lead">
+                    Страница теперь устроена как продуктовый экран: сначала ценностное предложение, потом сценарии,
+                    затем источники, доказательства и финальный маршрут запуска.
+                </p>
+            </div>
 
-        <article class="card">
-            <p class="eyebrow">Источники</p>
-            <h2>Ключевые официальные реестры</h2>
-            <div class="source-preview-list">
-                {% for source in sources_preview %}
-                    <div class="source-preview-item">
-                        <h3>{{ source.name }}</h3>
-                        <p>{{ source.purpose }}</p>
-                        <a class="text-link" href="{{ source.url }}" target="_blank" rel="noreferrer">
-                            Перейти на источник
-                        </a>
-                    </div>
+            <div class="feature-grid">
+                {% for feature in feature_blocks %}
+                    <article class="feature-card">
+                        <h3>{{ feature.title }}</h3>
+                        <p>{{ feature.description }}</p>
+                        <ul class="feature-list">
+                            {% for item in feature.items %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
                 {% endfor %}
             </div>
-            <a class="button-link" href="{% url 'portal:sources' %}">Смотреть все источники</a>
-        </article>
+        </div>
+    </section>
+
+    <section class="landing-band">
+        <div class="shell landing-band-inner">
+            <div>
+                <p class="eyebrow eyebrow-light">Сценарий запуска</p>
+                <h2>Проверяйте себя, контрагента или кандидата без серых баз и без ручного хаоса</h2>
+                <p>
+                    Сначала определите цель и объем данных, затем откройте официальные источники, а если нужен
+                    кредитный отчет — попросите субъекта передать его законным способом.
+                </p>
+            </div>
+
+            <div class="band-actions">
+                <a class="button-link button-link-light" href="{% url 'portal:document-detail' 'third-party-check' %}">
+                    Открыть сценарий проверки
+                </a>
+                <a class="ghost-link ghost-link-light" href="{% url 'portal:document-detail' 'screening-request-form' %}">
+                    Карточка запуска
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-section landing-section-white">
+        <div class="shell">
+            <div class="section-intro">
+                <p class="eyebrow">Официальные источники</p>
+                <h2>Проверка на благонадежность только по первичным реестрам</h2>
+                <p class="lead">
+                    Ниже показан тот же юридически безопасный каркас, который ты просил собрать: без неофициальных
+                    агрегаторов как первичного источника и без обхода ограничений по кредитной истории.
+                </p>
+            </div>
+
+            <div class="sources-showcase">
+                {% for source in sources_full %}
+                    <article class="source-showcase-card">
+                        <p class="eyebrow">{{ source.type }}</p>
+                        <h3>{{ source.name }}</h3>
+                        <p>{{ source.purpose }}</p>
+                        <ul class="tag-list">
+                            {% for field in source.search_fields %}
+                                <li>{{ field }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a class="text-link" href="{{ source.url }}" target="_blank" rel="noreferrer">
+                            Перейти к источнику
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-metrics">
+        <div class="shell metric-strip">
+            <div class="metric-item">
+                <strong>{{ sources_count }}</strong>
+                <span>официальных источников</span>
+            </div>
+            <div class="metric-item">
+                <strong>{{ checklists_total }}</strong>
+                <span>чеклиста запуска</span>
+            </div>
+            <div class="metric-item">
+                <strong>{{ templates_total }}</strong>
+                <span>шаблона документов</span>
+            </div>
+            <div class="metric-item">
+                <strong>{{ documents_total }}</strong>
+                <span>страниц контента и маршрутов</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-section landing-section-light">
+        <div class="shell">
+            <div class="section-intro">
+                <p class="eyebrow">Материалы проекта</p>
+                <h2>Что можно открыть сразу после лендинга</h2>
+            </div>
+
+            {% for section in document_sections %}
+                <div class="document-group document-group-landing">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">{{ section.title }}</p>
+                            <h3>{{ section.documents|length }} материала в разделе</h3>
+                        </div>
+                    </div>
+
+                    <div class="card-grid">
+                        {% for item in section.documents %}
+                            <article class="mini-card mini-card-landing">
+                                <h4>{{ item.title }}</h4>
+                                <p>{{ item.summary }}</p>
+                                <a class="text-link" href="{% url 'portal:document-detail' item.slug %}">
+                                    Открыть документ
+                                </a>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="landing-section landing-section-white">
+        <div class="shell split-grid split-grid-wide">
+            <article class="card trust-card">
+                <p class="eyebrow">Почему это безопаснее</p>
+                <h2>Проект держит юридическую рамку на первом месте</h2>
+                <div class="trust-grid">
+                    {% for item in trust_highlights %}
+                        <div class="trust-item">
+                            <h3>{{ item.title }}</h3>
+                            <p>{{ item.text }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="card trust-card trust-card-dark">
+                <p class="eyebrow eyebrow-light">Готовые действия</p>
+                <h2>Стартовый пакет для внутреннего процесса</h2>
+                <ul class="bullet-list bullet-list-light">
+                    <li>Открой каталог официальных источников и сверяйся только с первичными доменами.</li>
+                    <li>Используй согласие на проверку по реестрам перед запуском проверки третьего лица.</li>
+                    <li>Для кредитной истории работай только через БКИ и документы, переданные самим субъектом.</li>
+                    <li>Фиксируй результат через карточку запуска и срок удаления материалов.</li>
+                </ul>
+                <div class="hero-actions">
+                    <a class="button-link button-link-light" href="{% url 'portal:document-detail' 'open-registries-consent' %}">
+                        Согласие на проверку
+                    </a>
+                    <a class="ghost-link ghost-link-light" href="{% url 'portal:document-detail' 'credit-report-consent' %}">
+                        Кредитный отчет
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="landing-final">
+        <div class="shell">
+            <div class="final-card">
+                <div>
+                    <p class="eyebrow">Финальный CTA</p>
+                    <h2>Главная теперь выглядит как лендинг, но внутри все еще остается рабочий набор документов и API</h2>
+                    <p>
+                        Если продолжать в ту же сторону, следующим шагом можно делать отдельные страницы для тарифов,
+                        демо-заявки, политики ПДн и SEO-посадок под сценарии проверки.
+                    </p>
+                </div>
+                <div class="final-actions">
+                    <a class="button-link" href="{% url 'portal:sources' %}">Смотреть каталог источников</a>
+                    <a class="ghost-link" href="{% url 'portal:sources-api' %}">Открыть JSON API</a>
+                </div>
+            </div>
+        </div>
     </section>
 {% endblock %}

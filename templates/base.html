@@ -7,51 +7,94 @@
     <title>{% block title %}Legal Checks RF{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'portal/site.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}docs-page{% endblock %}">
     <header class="site-header">
         <div class="shell header-inner">
-            <a class="brand" href="{% url 'portal:home' %}">Legal Checks RF</a>
+            <a class="brand" href="{% url 'portal:home' %}">
+                <span class="brand-mark">LR</span>
+                <span class="brand-text">Legal Checks RF</span>
+            </a>
             <nav class="top-nav">
                 <a href="{% url 'portal:home' %}">Главная</a>
                 <a href="{% url 'portal:sources' %}">Источники</a>
-                <a href="{% url 'portal:sources-api' %}">JSON API</a>
+                <a href="{% url 'portal:document-detail' 'self-check' %}">Самопроверка</a>
+                <a href="{% url 'portal:document-detail' 'third-party-check' %}">Проверка по согласию</a>
             </nav>
+            <div class="header-actions">
+                <a class="header-link" href="{% url 'portal:sources-api' %}">JSON API</a>
+                <a class="header-cta" href="{% url 'portal:document-detail' 'screening-request-form' %}">
+                    Карточка запуска
+                </a>
+            </div>
         </div>
     </header>
 
-    <div class="shell layout">
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h2>Навигация</h2>
-                <ul class="sidebar-links">
-                    <li><a href="{% url 'portal:home' %}">Обзор проекта</a></li>
-                    <li><a href="{% url 'portal:sources' %}">Официальные источники</a></li>
-                </ul>
-            </div>
-
-            {% for section in document_sections %}
+    {% block page_layout %}
+        <div class="shell layout">
+            <aside class="sidebar">
                 <div class="sidebar-card">
-                    <h2>{{ section.title }}</h2>
+                    <h2>Навигация</h2>
                     <ul class="sidebar-links">
-                        {% for item in section.documents %}
-                            <li>
-                                <a href="{% url 'portal:document-detail' item.slug %}">{{ item.nav_label }}</a>
-                            </li>
-                        {% endfor %}
+                        <li><a href="{% url 'portal:home' %}">Лендинг проекта</a></li>
+                        <li><a href="{% url 'portal:sources' %}">Официальные источники</a></li>
                     </ul>
                 </div>
-            {% endfor %}
 
-            <div class="sidebar-card accent-card">
-                <p class="eyebrow">Контур проекта</p>
-                <p class="sidebar-metric">{{ sources_count }}</p>
-                <p class="muted">официальных источников в каталоге</p>
+                {% for section in document_sections %}
+                    <div class="sidebar-card">
+                        <h2>{{ section.title }}</h2>
+                        <ul class="sidebar-links">
+                            {% for item in section.documents %}
+                                <li>
+                                    <a href="{% url 'portal:document-detail' item.slug %}">{{ item.nav_label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+
+                <div class="sidebar-card accent-card">
+                    <p class="eyebrow">Контур проекта</p>
+                    <p class="sidebar-metric">{{ sources_count }}</p>
+                    <p class="muted">официальных источников в каталоге</p>
+                </div>
+            </aside>
+
+            <main class="content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    {% endblock %}
+
+    {% block site_footer %}
+        <footer class="site-footer">
+            <div class="shell site-footer-grid">
+                <div class="footer-column footer-brand">
+                    <p class="eyebrow eyebrow-footer">Legal Checks RF</p>
+                    <h2>Легальный контур проверки по РФ</h2>
+                    <p>
+                        Django-проект с каталогом официальных источников, чеклистами и шаблонами для самопроверки,
+                        контрагентов и внутреннего комплаенса.
+                    </p>
+                </div>
+                <div class="footer-column">
+                    <h3>Маршруты</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'portal:home' %}">Главная</a></li>
+                        <li><a href="{% url 'portal:sources' %}">Источники</a></li>
+                        <li><a href="{% url 'portal:sources-api' %}">JSON API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ключевые документы</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'portal:document-detail' 'self-check' %}">Чеклист самопроверки</a></li>
+                        <li><a href="{% url 'portal:document-detail' 'open-registries-consent' %}">Согласие на реестры</a></li>
+                        <li><a href="{% url 'portal:document-detail' 'credit-report-consent' %}">Передача кредитного отчета</a></li>
+                    </ul>
+                </div>
             </div>
-        </aside>
-
-        <main class="content">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
+        </footer>
+    {% endblock %}
 </body>
 </html>
