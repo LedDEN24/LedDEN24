@@ -55,50 +55,96 @@
     </div>
 
     <div class="hero-visual">
-      <article class="hero-card">
-        <div class="hero-card__luxury-badge">Signature bouquet</div>
-        <div class="hero-card__media">
-          {% if hero_product and hero_product.image %}
-            <img src="{{ hero_product.image.url }}" alt="{{ hero_product.title }}">
-          {% elif hero_product and hero_product.image_url %}
-            <img src="{{ hero_product.image_url }}" alt="{{ hero_product.title }}">
-          {% else %}
-            <div class="hero-card__placeholder">Свежая цветочная витрина</div>
-          {% endif %}
+      <div class="hero-showcase">
+        <div class="hero-showcase__head">
+          <div>
+            <span class="hero-showcase__eyebrow">Витрина сверху</span>
+            <h2>Актуальные букеты и композиции</h2>
+          </div>
+          <a href="#catalog" class="hero-showcase__link">Открыть весь каталог</a>
         </div>
-        <div class="hero-card__body">
-          <span class="hero-card__eyebrow">Выбор дня</span>
-          {% if hero_product %}
-            <h2>{{ hero_product.title }}</h2>
-            <p>
-              {% if hero_product.description %}
-                {{ hero_product.description|striptags|truncatechars:130 }}
+
+        <div class="hero-showcase__grid">
+          <article class="hero-card">
+            <div class="hero-card__luxury-badge">Signature bouquet</div>
+            <div class="hero-card__media">
+              {% if hero_product and hero_product.image %}
+                <img src="{{ hero_product.image.url }}" alt="{{ hero_product.title }}">
+              {% elif hero_product and hero_product.image_url %}
+                <img src="{{ hero_product.image_url }}" alt="{{ hero_product.title }}">
               {% else %}
-                Нежная композиция, собранная флористом вручную и готовая к доставке сегодня.
+                <div class="hero-card__placeholder">Свежая цветочная витрина</div>
               {% endif %}
-            </p>
-            <div class="hero-card__footer">
-              <strong>{{ hero_product.price }} ₽</strong>
-              <a href="{% url 'product_detail' slug=hero_product.slug %}">Смотреть товар</a>
             </div>
-            <div class="hero-card__details">
-              <span>Собран флористом вручную</span>
-              <span>Оформление в boutique-стиле</span>
+            <div class="hero-card__body">
+              <span class="hero-card__eyebrow">Выбор дня</span>
+              {% if hero_product %}
+                <h2>{{ hero_product.title }}</h2>
+                <p>
+                  {% if hero_product.description %}
+                    {{ hero_product.description|striptags|truncatechars:130 }}
+                  {% else %}
+                    Нежная композиция, собранная флористом вручную и готовая к доставке сегодня.
+                  {% endif %}
+                </p>
+                <div class="hero-card__footer">
+                  <strong>{{ hero_product.price }} ₽</strong>
+                  <a href="{% url 'product_detail' slug=hero_product.slug %}">Смотреть товар</a>
+                </div>
+                <div class="hero-card__details">
+                  <span>Собран флористом вручную</span>
+                  <span>Оформление в boutique-стиле</span>
+                </div>
+              {% else %}
+                <h2>Подберем букет под ваш повод</h2>
+                <p>Соберем романтичный, праздничный или лаконичный вариант и поможем оформить заказ.</p>
+                <div class="hero-card__footer">
+                  <strong>от 2 490 ₽</strong>
+                  <a href="#catalog">Открыть каталог</a>
+                </div>
+                <div class="hero-card__details">
+                  <span>Свежая поставка ежедневно</span>
+                  <span>Premium-упаковка и открытка</span>
+                </div>
+              {% endif %}
             </div>
-          {% else %}
-            <h2>Подберем букет под ваш повод</h2>
-            <p>Соберем романтичный, праздничный или лаконичный вариант и поможем оформить заказ.</p>
-            <div class="hero-card__footer">
-              <strong>от 2 490 ₽</strong>
-              <a href="#catalog">Открыть каталог</a>
-            </div>
-            <div class="hero-card__details">
-              <span>Свежая поставка ежедневно</span>
-              <span>Premium-упаковка и открытка</span>
-            </div>
-          {% endif %}
+          </article>
+
+          <div class="hero-showcase__rail">
+            {% for p in showcase_products %}
+              <a class="showcase-mini" href="{% url 'product_detail' slug=p.slug %}">
+                <div class="showcase-mini__media">
+                  {% if p.image %}
+                    <img src="{{ p.image.url }}" alt="{{ p.title }}">
+                  {% elif p.image_url %}
+                    <img src="{{ p.image_url }}" alt="{{ p.title }}">
+                  {% else %}
+                    <div class="img-placeholder">Букет</div>
+                  {% endif %}
+                </div>
+                <div class="showcase-mini__body">
+                  <div class="showcase-mini__topline">
+                    {% if p.category %}<span>{{ p.category.name }}</span>{% endif %}
+                    {% if p.is_hit %}<em>Хит</em>{% elif p.is_new %}<em>Новинка</em>{% endif %}
+                  </div>
+                  <strong>{{ p.title }}</strong>
+                  <p>
+                    {% if p.description %}
+                      {{ p.description|striptags|truncatechars:72 }}
+                    {% else %}
+                      Авторская композиция с деликатной упаковкой и живой подачей.
+                    {% endif %}
+                  </p>
+                  <div class="showcase-mini__footer">
+                    <span>{{ p.price }} ₽</span>
+                    <b>Смотреть</b>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
         </div>
-      </article>
+      </div>
 
       <div class="hero-note">
         <div class="hero-note__rating">

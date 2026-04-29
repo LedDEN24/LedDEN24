@@ -34,6 +34,10 @@ def index(request):
         .order_by("-created_at")[:4]
     )
     hero_product = hits[0] if hits else (page_items[0] if page_items else None)
+    showcase_products_qs = products.order_by("-is_hit", "-is_new", "-created_at")
+    if hero_product:
+        showcase_products_qs = showcase_products_qs.exclude(pk=hero_product.pk)
+    showcase_products = list(showcase_products_qs[:4])
 
     ctx = {
         "categories": categories,
@@ -44,6 +48,7 @@ def index(request):
         "reviews": Review.objects.order_by("-created_at")[:6],
         "total_products": products.count(),
         "hero_product": hero_product,
+        "showcase_products": showcase_products,
     }
     return render(request, "catalog/index.html", ctx)
 
