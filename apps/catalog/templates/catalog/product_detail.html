@@ -95,10 +95,10 @@
         </div>
 
         <div class="product-actions">
-          <form method="post" action="{% url 'cart_add' slug=product.slug %}" class="product-buy-form">
+          <form method="post" action="{% url 'cart_add' slug=product.slug %}" class="product-buy-form" data-cart-form data-product-title="{{ product.title }}">
             {% csrf_token %}
             <input type="hidden" name="qty" value="1">
-            <button class="btn btn-primary" type="submit">Добавить в корзину</button>
+            <button class="btn btn-primary" type="submit" data-cart-submit>Добавить в корзину</button>
           </form>
           <a class="btn btn-outline" href="{% url 'contact' %}">Обсудить с флористом</a>
         </div>

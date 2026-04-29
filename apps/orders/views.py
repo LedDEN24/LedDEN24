@@ -25,6 +25,36 @@ def _safe_qty(value, default=1):
     return max(1, min(qty, 99))
 
 
+def _wants_json(request) -> bool:
+    requested_with = request.headers.get("X-Requested-With", "")
+    accept = request.headers.get("Accept", "")
+    return requested_with.lower() == "fetch" or "application/json" in accept.lower()
+
+
+def _cart_state(cart: Cart) -> dict:
+    lines = cart.lines()
+    return {
+        "cart_count": len(cart),
+        "cart_subtotal": int(cart.subtotal),
+        "items": {
+            line.product.slug: {
+                "qty": int(line.qty),
+                "unit_price": int(line.product.price),
+                "line_total": int(line.line_total),
+                "title": line.product.title,
+            }
+            for line in lines
+        },
+    }
+
+
+def _cart_json_response(cart: Cart, *, message: str = "", action: str = "", product: Product | None = None):
+    payload = {"ok": True, "message": message, "action": action, **_cart_state(cart)}
+    if product:
+        payload["product"] = {"slug": product.slug, "title": product.title}
+    return JsonResponse(payload)
+
+
 def _get_owned_order_or_404(request, pk: int) -> Order:
     order = get_object_or_404(Order, pk=pk)
     session_key = request.session.session_key or ""
@@ -48,6 +78,13 @@ def cart_add(request, slug):
     product = Product.objects.filter(slug=slug).first()
     if product:
         track_event(request, event_type="add_to_cart", product=product, metadata={"qty": qty})
+    if _wants_json(request):
+        return _cart_json_response(
+            cart,
+            message="Товар добавлен в корзину",
+            action="add",
+            product=product,
+        )
     messages.success(request, "Добавлено в корзину")
     return redirect(request.META.get("HTTP_REFERER") or "cart_detail")
 
@@ -60,6 +97,13 @@ def cart_remove(request, slug):
     sync_cart_session(request, cart)
     if product:
         track_event(request, event_type="cart_remove", product=product)
+    if _wants_json(request):
+        return _cart_json_response(
+            cart,
+            message="Товар удален из корзины",
+            action="remove",
+            product=product,
+        )
     return redirect("cart_detail")
 
 
@@ -74,6 +118,12 @@ def cart_update(request):
             except Exception:
                 continue
     sync_cart_session(request, cart)
+    if _wants_json(request):
+        return _cart_json_response(
+            cart,
+            message="Корзина обновлена",
+            action="update",
+        )
     return redirect("cart_detail")
 
 

@@ -33,10 +33,10 @@
     <div class="product-card__footer">
       <p class="price">{{ p.price }} ₽</p>
       <p class="product-card__note">Фирменная упаковка и открытка по запросу</p>
-      <form method="post" action="{% url 'cart_add' slug=p.slug %}" class="product-card__actions">
+      <form method="post" action="{% url 'cart_add' slug=p.slug %}" class="product-card__actions" data-cart-add-form data-product-slug="{{ p.slug }}">
         {% csrf_token %}
         <input type="hidden" name="qty" value="1">
-        <button class="btn btn-primary" type="submit">В корзину</button>
+        <button class="btn btn-primary" type="submit" data-cart-submit>В корзину</button>
         <a class="btn btn-outline" href="{% url 'product_detail' slug=p.slug %}">Карточка</a>
       </form>
     </div>

@@ -2225,6 +2225,97 @@ textarea.input{
   border-top:1px solid rgba(223,210,195,0.92);
 }
 
+.mobile-bottom-nav{
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:95;
+  display:none;
+  grid-template-columns:repeat(5, minmax(0, 1fr));
+  gap:8px;
+  padding:10px 12px;
+  border-radius:24px;
+  background:rgba(29,23,23,0.92);
+  border:1px solid rgba(216,185,139,0.16);
+  box-shadow:0 24px 48px rgba(17, 12, 12, 0.32);
+  backdrop-filter:blur(14px);
+}
+
+.mobile-bottom-nav__item{
+  position:relative;
+  display:grid;
+  justify-items:center;
+  gap:4px;
+  padding:6px 4px;
+  color:rgba(255,246,234,0.72);
+  text-align:center;
+}
+
+.mobile-bottom-nav__item:hover{
+  color:#fff8ef;
+}
+
+.mobile-bottom-nav__icon{
+  font-size:18px;
+  line-height:1;
+}
+
+.mobile-bottom-nav__label{
+  font-size:11px;
+  font-weight:600;
+}
+
+.mobile-bottom-nav__badge{
+  position:absolute;
+  top:2px;
+  right:14px;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:var(--champagne);
+  color:#1d1717;
+  font-size:10px;
+  font-weight:800;
+}
+
+.cart-toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translate(-50%, 14px);
+  z-index:110;
+  min-width:min(320px, calc(100vw - 32px));
+  max-width:min(420px, calc(100vw - 32px));
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(29,23,23,0.94);
+  color:#fff8ef;
+  box-shadow:0 18px 40px rgba(17, 12, 12, 0.3);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+}
+
+.cart-toast.is-visible{
+  opacity:1;
+  transform:translate(-50%, 0);
+}
+
+.cart-toast__title{
+  font-size:14px;
+  font-weight:700;
+}
+
+.cart-toast__meta{
+  margin-top:4px;
+  color:rgba(255,248,239,0.76);
+  font-size:13px;
+}
+
 .pagination{
   display:flex;
   justify-content:center;
@@ -2474,6 +2565,10 @@ textarea.input{
     grid-column:2 / -1;
     justify-content:flex-start;
   }
+
+  .mobile-bottom-nav{
+    display:grid;
+  }
 }
 
 @media (max-width: 720px){
@@ -2566,5 +2661,13 @@ textarea.input{
 
   .product-card__actions{
     grid-template-columns:1fr;
+  }
+
+  .site-main{
+    padding-bottom:132px;
+  }
+
+  .cart-toast{
+    bottom:102px;
   }
 }

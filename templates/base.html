@@ -20,6 +20,7 @@
 </head>
 <body>
   {% include "includes/header.html" %}
+  <div class="app-shell" data-app-shell>
   {% if messages %}
     <div class="messages-wrap">
       <div class="container">
@@ -34,6 +35,30 @@
   <main class="site-main">
     {% block content %}{% endblock %}
   </main>
+  </div>
+  <nav class="mobile-bottom-nav" aria-label="Быстрая навигация">
+    <a class="mobile-bottom-nav__item" href="/#about">
+      <span class="mobile-bottom-nav__icon">⌂</span>
+      <span class="mobile-bottom-nav__label">Главная</span>
+    </a>
+    <a class="mobile-bottom-nav__item" href="/#catalog">
+      <span class="mobile-bottom-nav__icon">◫</span>
+      <span class="mobile-bottom-nav__label">Каталог</span>
+    </a>
+    <a class="mobile-bottom-nav__item mobile-bottom-nav__item--cart" href="{% url 'cart_detail' %}">
+      <span class="mobile-bottom-nav__icon">🛍</span>
+      <span class="mobile-bottom-nav__label">Корзина</span>
+      <span class="mobile-bottom-nav__badge" data-cart-count>{{ cart_count }}</span>
+    </a>
+    <a class="mobile-bottom-nav__item" href="{% url 'my_orders' %}">
+      <span class="mobile-bottom-nav__icon">◎</span>
+      <span class="mobile-bottom-nav__label">Заказы</span>
+    </a>
+    <a class="mobile-bottom-nav__item" href="{% url 'contact' %}">
+      <span class="mobile-bottom-nav__icon">✆</span>
+      <span class="mobile-bottom-nav__label">Связь</span>
+    </a>
+  </nav>
   {% include "includes/footer.html" %}
   <script src="{% static 'js/main.js' %}"></script>
   <script src="{% static 'js/search.js' %}" defer></script>
