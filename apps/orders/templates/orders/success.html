@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Заказ оформлен — {{ site_profile.name|default:"Atrium Flowers" }}{% endblock %}
+{% block content %}
+<section class="page-shell page-shell--narrow">
+  <div class="container">
+    <div class="status-card status-card--success">
+      <div class="status-card__icon">✓</div>
+      <div class="status-card__body">
+        <div class="eyebrow">Спасибо за заказ</div>
+        <h1>Мы приняли заказ №{{ order.pk }}</h1>
+        <p class="section-lead">
+          Флорист уже получил заявку. Мы свяжемся с вами по телефону {{ order.phone }}
+          {% if order.payment_method == "online" and order.payment_status == "paid" %}
+            и подтвердим оплату.
+          {% else %}
+            для подтверждения деталей и доставки.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <div class="checkout-grid checkout-grid--summary">
+      <section class="content-card">
+        <h2>Детали заказа</h2>
+        <div class="checkout-summary__rows">
+          <div><span>Статус</span><strong>{{ order.get_workflow_status_display }}</strong></div>
+          <div><span>Сумма</span><strong>{{ order.total }} ₽</strong></div>
+          {% if order.delivery %}
+            <div><span>Доставка</span><strong>{{ order.delivery.name }}</strong></div>
+          {% endif %}
+          {% if order.delivery_slot %}
+            <div><span>Временной слот</span><strong>{{ order.delivery_slot.label }}</strong></div>
+          {% endif %}
+          {% if order.address %}
+            <div><span>Адрес</span><strong>{{ order.address }}</strong></div>
+          {% endif %}
+        </div>
+      </section>
+
+      <aside class="content-card">
+        <h2>Что дальше</h2>
+        <div class="info-list">
+          <div>Подтвердим состав букета и упаковку.</div>
+          <div>Согласуем доставку и подпись к открытке.</div>
+          <div>Отправим заказ в работу флористу.</div>
+        </div>
+        <div class="cta-stack">
+          <a class="btn btn-primary" href="{% url 'index' %}">Вернуться в каталог</a>
+          <a class="btn btn-outline" href="{% url 'my_orders' %}">Мои заказы</a>
+        </div>
+      </aside>
+    </div>
+
+    {% if order.status_history.all %}
+      <section class="content-card">
+        <h2>История статусов</h2>
+        <div class="timeline">
+          {% for row in order.status_history.all %}
+            <div class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div>
+                <div class="timeline__title">{{ row.get_status_display }}</div>
+                <div class="small">{{ row.created_at }}</div>
+                {% if row.comment %}<p class="timeline__text">{{ row.comment }}</p>{% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

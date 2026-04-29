@@ -1,0 +1,507 @@
+
+<!doctype html>
+<html lang="ru">
+<head><base href="http://127.0.0.1:8000/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Atrium Flowers</title>
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/light.css">
+  
+</head>
+<body>
+  
+<header class="main-header">
+  <div class="container header-row">
+    <a class="logo" href="/#about">Atrium Flowers</a>
+    <button class="nav-toggle" aria-label="Открыть меню">☰</button>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/#about">О магазине</a></li>
+        <li><a href="/#services">Каталог</a></li>
+        <li><a href="/#rating">Отзывы</a></li>
+        <li><a href="/#contacts">Контакты</a></li>
+      </ul>
+
+      <div class="mp-search" data-search>
+        <input class="mp-search__input" type="search" placeholder="Поиск: розы, пионы, коробка…" autocomplete="off" />
+        <div class="mp-search__dropdown" hidden></div>
+      </div>
+
+      <ul class="nav-actions">
+        <li><a href="/contact/">💬 Написать админу</a></li>
+        <li><a href="/cart/">Корзина (0)</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+    
+<section id="about" class="hero container">
+  <h1>Atrium Flowers</h1>
+  
+    <p class="subtitle">Букеты, подарки и доставка день в день</p>
+    <p class="description">Современная цветочная витрина в стиле маркетплейса: хиты, новинки, быстрый поиск и удобный checkout.</p>
+    <div class="rating-map">
+      <span class="rating">4,9 ★</span>
+      <span class="small">128 отзывов</span>
+    </div>
+    <ul class="contacts">
+      <li><a href="tel:+7(999)123-45-67">+7 (999) 123-45-67</a></li>
+      <li>Екатеринбург, Краснолесья 10/3</li>
+      <li><a href="https://t.me/example">Telegram</a></li>
+      <li><a href="https://vk.com/example">VKontakte</a></li>
+    </ul>
+  
+  <a href="#services" class="btn btn-primary">Подробнее</a>
+</section>
+
+<section id="services" class="catalog container">
+  <h2>Каталог</h2>
+
+  <div class="filters">
+    <a class="chip active" href="?cat=all">Все</a>
+    
+      <a class="chip " href="?cat=bouquets">💐 Букеты</a>
+    
+      <a class="chip " href="?cat=boxes">🎁 Композиции</a>
+    
+      <a class="chip " href="?cat=wedding">🤍 Свадебные</a>
+    
+      <a class="chip " href="?cat=srezka">🌿 Срезка</a>
+    
+      <a class="chip " href="?cat=bukety">💐 Букеты</a>
+    
+      <a class="chip " href="?cat=kompozicii">🌸 Композиции</a>
+    
+      <a class="chip " href="?cat=cvety-v-korobke">🎁 Цветы в коробке</a>
+    
+  </div>
+
+  <div class="category-grid" aria-label="Категории">
+    
+      <a class="category-card" href="?cat=bouquets" aria-label="Букеты">
+        <div class="category-media">
+          
+            <div class="category-icon">💐</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Букеты</div>
+          <div class="category-sub">2 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=boxes" aria-label="Композиции">
+        <div class="category-media">
+          
+            <div class="category-icon">🎁</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Композиции</div>
+          <div class="category-sub">1 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=wedding" aria-label="Свадебные">
+        <div class="category-media">
+          
+            <div class="category-icon">🤍</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Свадебные</div>
+          <div class="category-sub">1 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=srezka" aria-label="Срезка">
+        <div class="category-media">
+          
+            <div class="category-icon">🌿</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Срезка</div>
+          <div class="category-sub">0 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=bukety" aria-label="Букеты">
+        <div class="category-media">
+          
+            <div class="category-icon">💐</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Букеты</div>
+          <div class="category-sub">0 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=kompozicii" aria-label="Композиции">
+        <div class="category-media">
+          
+            <div class="category-icon">🌸</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Композиции</div>
+          <div class="category-sub">0 товаров</div>
+        </div>
+      </a>
+    
+      <a class="category-card" href="?cat=cvety-v-korobke" aria-label="Цветы в коробке">
+        <div class="category-media">
+          
+            <div class="category-icon">🎁</div>
+          
+        </div>
+        <div class="category-body">
+          <div class="category-title">Цветы в коробке</div>
+          <div class="category-sub">0 товаров</div>
+        </div>
+      </a>
+    
+  </div>
+
+  
+    <h3 class="section-title">🔥 Хиты</h3>
+    <ul class="product-grid">
+      
+        <li class="product-card">
+  <a href="/product/product-3/">
+    
+      <img src="/media/products/prod3.png" alt="Коробка с розами Premium">
+    
+  </a>
+
+  <div class="badges">
+    <span class="badge badge-hit">🔥 Хит</span>
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Коробка с розами Premium</h3>
+  <p class="price">6990 ₽</p>
+
+  <form method="post" action="/cart/add/product-3/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-3/">Подробнее</a>
+  </form>
+</li>
+
+
+      
+        <li class="product-card">
+  <a href="/product/product-1/">
+    
+      <img src="/media/products/prod1.png" alt="Нежный пионовый букет">
+    
+  </a>
+
+  <div class="badges">
+    <span class="badge badge-hit">🔥 Хит</span>
+    
+  </div>
+
+  <h3>Нежный пионовый букет</h3>
+  <p class="price">4590 ₽</p>
+
+  <form method="post" action="/cart/add/product-1/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-1/">Подробнее</a>
+  </form>
+</li>
+
+
+      
+    </ul>
+  
+
+  
+    <h3 class="section-title">🆕 Новинки</h3>
+    <ul class="product-grid">
+      
+        <li class="product-card">
+  <a href="/product/product-4/">
+    
+      <img src="/media/products/prod4.png" alt="Белая свадебная композиция">
+    
+  </a>
+
+  <div class="badges">
+    
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Белая свадебная композиция</h3>
+  <p class="price">8990 ₽</p>
+
+  <form method="post" action="/cart/add/product-4/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-4/">Подробнее</a>
+  </form>
+</li>
+
+
+      
+        <li class="product-card">
+  <a href="/product/product-3/">
+    
+      <img src="/media/products/prod3.png" alt="Коробка с розами Premium">
+    
+  </a>
+
+  <div class="badges">
+    <span class="badge badge-hit">🔥 Хит</span>
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Коробка с розами Premium</h3>
+  <p class="price">6990 ₽</p>
+
+  <form method="post" action="/cart/add/product-3/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-3/">Подробнее</a>
+  </form>
+</li>
+
+
+      
+        <li class="product-card">
+  <a href="/product/product-2/">
+    
+      <img src="/media/products/prod2.png" alt="Яркий весенний микс">
+    
+  </a>
+
+  <div class="badges">
+    
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Яркий весенний микс</h3>
+  <p class="price">3990 ₽</p>
+
+  <form method="post" action="/cart/add/product-2/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-2/">Подробнее</a>
+  </form>
+</li>
+
+
+      
+    </ul>
+  
+
+  <ul class="product-grid">
+    
+      <li class="product-card">
+  <a href="/product/product-4/">
+    
+      <img src="/media/products/prod4.png" alt="Белая свадебная композиция">
+    
+  </a>
+
+  <div class="badges">
+    
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Белая свадебная композиция</h3>
+  <p class="price">8990 ₽</p>
+
+  <form method="post" action="/cart/add/product-4/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-4/">Подробнее</a>
+  </form>
+</li>
+
+
+    
+      <li class="product-card">
+  <a href="/product/product-3/">
+    
+      <img src="/media/products/prod3.png" alt="Коробка с розами Premium">
+    
+  </a>
+
+  <div class="badges">
+    <span class="badge badge-hit">🔥 Хит</span>
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Коробка с розами Premium</h3>
+  <p class="price">6990 ₽</p>
+
+  <form method="post" action="/cart/add/product-3/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-3/">Подробнее</a>
+  </form>
+</li>
+
+
+    
+      <li class="product-card">
+  <a href="/product/product-2/">
+    
+      <img src="/media/products/prod2.png" alt="Яркий весенний микс">
+    
+  </a>
+
+  <div class="badges">
+    
+    <span class="badge badge-new">🆕 Новый</span>
+  </div>
+
+  <h3>Яркий весенний микс</h3>
+  <p class="price">3990 ₽</p>
+
+  <form method="post" action="/cart/add/product-2/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-2/">Подробнее</a>
+  </form>
+</li>
+
+
+    
+      <li class="product-card">
+  <a href="/product/product-1/">
+    
+      <img src="/media/products/prod1.png" alt="Нежный пионовый букет">
+    
+  </a>
+
+  <div class="badges">
+    <span class="badge badge-hit">🔥 Хит</span>
+    
+  </div>
+
+  <h3>Нежный пионовый букет</h3>
+  <p class="price">4590 ₽</p>
+
+  <form method="post" action="/cart/add/product-1/"
+        style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <input type="hidden" name="csrfmiddlewaretoken" value="96pk09oNtoaDAE4pyZUKhgN7ZxbnNwD1sCaKCimIVThkCndChYKAUpdATBKJzcNS">
+    <input type="hidden" name="qty" value="1">
+    <button class="btn btn-primary" type="submit">В корзину</button>
+    <a class="btn btn-light" href="/product/product-1/">Подробнее</a>
+  </form>
+</li>
+
+
+    
+  </ul>
+
+  <nav class="pagination">
+    
+    <span class="small">Стр. 1 из 1</span>
+    
+  </nav>
+</section>
+
+<section id="rating" class="reviews container">
+  <h2>Отзывы</h2>
+  
+  <div class="average-rating">
+    <span class="value">4,9</span> ★
+    <span class="count">128 отзывов</span>
+  </div>
+  
+  
+    <article class="review">
+      <h3>Игорь</h3>
+      <p class="stars">5 ★</p>
+      <time datetime="2026-03-12">12 марта 2026 г.</time>
+      <p class="text">Очень аккуратная сборка букета и быстрая доставка.</p>
+    </article>
+  
+    <article class="review">
+      <h3>Мария</h3>
+      <p class="stars">5 ★</p>
+      <time datetime="2026-03-11">11 марта 2026 г.</time>
+      <p class="text">Очень аккуратная сборка букета и быстрая доставка.</p>
+    </article>
+  
+    <article class="review">
+      <h3>Анна</h3>
+      <p class="stars">5 ★</p>
+      <time datetime="2026-03-10">10 марта 2026 г.</time>
+      <p class="text">Очень аккуратная сборка букета и быстрая доставка.</p>
+    </article>
+  
+</section>
+
+<section id="contacts" class="contact-info container">
+  <h2>Контакты</h2>
+  
+    <p class="address">Екатеринбург, Краснолесья 10/3</p>
+    <ul class="phones">
+      <li><a href="tel:+7(999)123-45-67">+7 (999) 123-45-67</a></li>
+    </ul>
+    <ul class="links">
+      <li><a href="https://yandex.ru/profile/7437735476?lang=ru&amp;no-distribution=1&amp;view-state=mini&amp;source=wizbiz_new_map_single">Как доехать</a></li>
+      <li><a href="https://t.me/example">Telegram</a></li>
+      
+        <li><a href="https://wa.me/79991234567">WhatsApp</a></li>
+      
+      <li><a href="https://vk.com/example">VKontakte</a></li>
+    </ul>
+    <table class="hours">
+      <tr><th>График</th><td>Ежедневно 09:00–22:00</td></tr>
+    </table>
+  
+</section>
+
+  </main>
+  
+<footer class="footer">
+  <div class="container footer-row">
+    <div class="small">
+      
+        <div>Екатеринбург, Краснолесья 10/3</div>
+        <div>Ежедневно 09:00–22:00</div>
+      
+      <div class="footer-credit">
+        <a href="https://yandex.ru/business/" rel="nofollow">Сайт создан в Яндекс Бизнес</a>
+      </div>
+    </div>
+    <div class="small">
+      <a href="#" class="to-top" data-scroll-top>Наверх ↑</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/search.js" defer></script>
+  
+</body>
+</html>

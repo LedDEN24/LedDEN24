@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Мои заказы — {{ site_profile.name|default:"Atrium Flowers" }}{% endblock %}
+
+{% block content %}
+<section class="page-section">
+  <div class="container">
+    <div class="section-copy">
+      <span class="section-kicker">Личный раздел</span>
+      <h1 class="section-heading">Ваши заказы</h1>
+      <p class="section-subtext">
+        Здесь отображаются заказы, оформленные в текущей сессии. Если нужна помощь по заказу,
+        используйте страницу контактов.
+      </p>
+    </div>
+
+    {% if orders %}
+      <div class="order-list">
+        {% for o in orders %}
+          <article class="status-card">
+            <div class="status-card__row">
+              <div>
+                <div class="status-card__eyebrow">Заказ #{{ o.pk }}</div>
+                <h2 class="status-card__title">{{ o.get_workflow_status_display }}</h2>
+              </div>
+              <div class="status-pill">{{ o.total }} ₽</div>
+            </div>
+            <div class="status-card__meta">
+              <span>{{ o.created_at|date:"d.m.Y H:i" }}</span>
+              {% if o.delivery_slot %}<span>{{ o.delivery_slot.label }}</span>{% endif %}
+              <span>{{ o.get_payment_method_display }}</span>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-card">
+        <h2>У вас пока нет заказов</h2>
+        <p>Самое время выбрать букет для близкого человека.</p>
+        <a class="btn btn-primary" href="{% url 'index' %}#catalog">Перейти в каталог</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

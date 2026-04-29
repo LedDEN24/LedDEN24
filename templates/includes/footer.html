@@ -1,0 +1,46 @@
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="logo-mark">AF</div>
+      <div>
+        <div class="footer-title">{{ site_profile.name|default:"Atrium Flowers" }}</div>
+        <p class="footer-text">
+          Премиальные букеты, тонкие цветовые сочетания и сервис с вниманием к каждой детали.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Покупателям</div>
+      <a href="/#catalog">Каталог</a>
+      <a href="{% url 'cart_detail' %}">Корзина</a>
+      <a href="{% url 'checkout' %}">Оформление заказа</a>
+      <a href="{% url 'my_orders' %}">Мои заказы</a>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Поводы</div>
+      <a href="/?cat=all">День рождения</a>
+      <a href="/?cat=all">Для любимой</a>
+      <a href="/?cat=all">Свадьба</a>
+      <a href="/?cat=all">Без повода</a>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Контакты</div>
+      {% if site_profile.phone %}<a href="tel:{{ site_profile.phone|cut:' ' }}">{{ site_profile.phone }}</a>{% endif %}
+      {% if site_profile.address %}<div class="footer-text">{{ site_profile.address }}</div>{% endif %}
+      {% if site_profile.work_hours %}<div class="footer-text">{{ site_profile.work_hours }}</div>{% endif %}
+      <div class="footer-socials">
+        {% if site_profile.tg_url %}<a href="{{ site_profile.tg_url }}" target="_blank" rel="noopener">Telegram</a>{% endif %}
+        {% if site_profile.vk_url %}<a href="{{ site_profile.vk_url }}" target="_blank" rel="noopener">VK</a>{% endif %}
+        {% if site_profile.maps_url %}<a href="{{ site_profile.maps_url }}" target="_blank" rel="noopener">Карта</a>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span class="small">Flower boutique experience for modern gifting.</span>
+    <a href="#" class="to-top" data-scroll-top>Наверх ↑</a>
+  </div>
+</footer>

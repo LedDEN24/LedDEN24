@@ -1,0 +1,480 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}{% if site_profile and site_profile.description %}{{ site_profile.description|striptags }}{% else %}Свежие букеты, композиции и доставка цветов в день заказа. Авторские подборки, стильные упаковки и заказ в пару кликов.{% endif %}{% endblock %}
+
+{% block content %}
+<section id="about" class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Atelier floral</span>
+      <div class="hero-signature">Premium flower atelier</div>
+      <h1>{{ site_profile.name|default:"Atrium Flowers" }}</h1>
+      <p class="hero-lead">
+        {% if site_profile and site_profile.subtitle %}
+          {{ site_profile.subtitle }}
+        {% else %}
+          Букеты, которые хочется дарить без повода.
+        {% endif %}
+      </p>
+      <p class="hero-description">
+        {% if site_profile and site_profile.description %}
+          {{ site_profile.description }}
+        {% else %}
+          Собираем авторские букеты, композиции в коробках и нежные подарочные наборы.
+          Доставляем по городу день в день и помогаем выбрать идеальный букет под повод,
+          настроение и бюджет.
+        {% endif %}
+      </p>
+
+      <div class="hero-actions">
+        <a href="#catalog" class="btn btn-primary">Выбрать букет</a>
+        <a href="{% url 'contact' %}" class="btn btn-outline">Написать флористу</a>
+      </div>
+
+      <div class="hero-trustline">
+        <span>Деликатная упаковка</span>
+        <span>Авторская сборка вручную</span>
+        <span>Фото перед отправкой</span>
+      </div>
+
+      <div class="hero-meta">
+        <div class="hero-meta__item">
+          <strong>Доставка в день заказа</strong>
+          <span>Отправим букет домой, в офис или на праздник.</span>
+        </div>
+        <div class="hero-meta__item">
+          <strong>Свежие поставки каждый день</strong>
+          <span>Подбираем цветы так, чтобы композиции дольше радовали.</span>
+        </div>
+        <div class="hero-meta__item">
+          <strong>Открытка и забота о деталях</strong>
+          <span>Поможем с текстом, упаковкой и красивой подачей.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-showcase">
+        <div class="hero-showcase__head">
+          <div>
+            <span class="hero-showcase__eyebrow">Витрина сверху</span>
+            <h2>Актуальные букеты и композиции</h2>
+          </div>
+          <a href="#catalog" class="hero-showcase__link">Открыть весь каталог</a>
+        </div>
+
+        <div class="hero-showcase__marketplace">
+          <article class="hero-showcase__lead">
+            <div class="hero-showcase__lead-media">
+              {% if hero_product and hero_product.image %}
+                <img src="{{ hero_product.image.url }}" alt="{{ hero_product.title }}">
+              {% elif hero_product and hero_product.image_url %}
+                <img src="{{ hero_product.image_url }}" alt="{{ hero_product.title }}">
+              {% else %}
+                <div class="img-placeholder">Свежая цветочная витрина</div>
+              {% endif %}
+            </div>
+            <div class="hero-showcase__lead-copy">
+              <span class="hero-showcase__kicker">Spotlight item</span>
+              {% if hero_product %}
+                <h2>{{ hero_product.title }}</h2>
+                <p>
+                  {% if hero_product.description %}
+                    {{ hero_product.description|striptags|truncatechars:140 }}
+                  {% else %}
+                    Нежная композиция, собранная флористом вручную и готовая к доставке сегодня.
+                  {% endif %}
+                </p>
+                <div class="hero-showcase__meta">
+                  <span>Фото перед отправкой</span>
+                  <span>Фирменная упаковка</span>
+                  <span>Доставка сегодня</span>
+                </div>
+                <div class="hero-showcase__lead-footer">
+                  <div class="hero-showcase__price">
+                    <strong>{{ hero_product.price }} ₽</strong>
+                    <span>Букет дня в витрине</span>
+                  </div>
+                  <div class="hero-showcase__actions">
+                    <form method="post" action="{% url 'cart_add' slug=hero_product.slug %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="qty" value="1">
+                      <button class="btn btn-primary" type="submit">В корзину</button>
+                    </form>
+                    <a class="btn btn-outline" href="{% url 'product_detail' slug=hero_product.slug %}">Карточка</a>
+                  </div>
+                </div>
+              {% else %}
+                <h2>Подберем букет под ваш повод</h2>
+                <p>Соберем романтичный, праздничный или лаконичный вариант и поможем оформить заказ.</p>
+                <div class="hero-showcase__meta">
+                  <span>Свежая поставка ежедневно</span>
+                  <span>Premium-упаковка</span>
+                </div>
+                <div class="hero-showcase__lead-footer">
+                  <div class="hero-showcase__price">
+                    <strong>от 2 490 ₽</strong>
+                    <span>Актуальные позиции магазина</span>
+                  </div>
+                  <div class="hero-showcase__actions">
+                    <a class="btn btn-primary" href="#catalog">В каталог</a>
+                    <a class="btn btn-outline" href="{% url 'contact' %}">Спросить флориста</a>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </article>
+
+          <div class="hero-showcase__controls">
+            <button type="button" class="hero-showcase__nav" data-showcase-prev aria-label="Предыдущие товары">‹</button>
+            <button type="button" class="hero-showcase__nav" data-showcase-next aria-label="Следующие товары">›</button>
+          </div>
+          <div class="hero-showcase__track" data-showcase-slider>
+            {% for p in showcase_featured %}
+              <article class="hero-mini-card">
+                <a class="hero-mini-card__media" href="{% url 'product_detail' slug=p.slug %}">
+                  {% if p.image %}
+                    <img src="{{ p.image.url }}" alt="{{ p.title }}">
+                  {% elif p.image_url %}
+                    <img src="{{ p.image_url }}" alt="{{ p.title }}">
+                  {% else %}
+                    <div class="img-placeholder">Букет</div>
+                  {% endif %}
+                </a>
+                <div class="hero-mini-card__body">
+                  <div class="hero-mini-card__topline">
+                    {% if p.category %}<span class="hero-mini-card__label">{{ p.category.name }}</span>{% endif %}
+                    {% if p.is_hit %}<span class="hero-mini-card__badge">Хит</span>{% elif p.is_new %}<span class="hero-mini-card__badge">New</span>{% endif %}
+                  </div>
+                  <h3><a href="{% url 'product_detail' slug=p.slug %}">{{ p.title }}</a></h3>
+                  <p>
+                    {% if p.description %}
+                      {{ p.description|striptags|truncatechars:72 }}
+                    {% else %}
+                      Авторская композиция с деликатной упаковкой и живой подачей.
+                    {% endif %}
+                  </p>
+                  <div class="hero-mini-card__footer">
+                    <strong>{{ p.price }} ₽</strong>
+                    <span>В наличии</span>
+                  </div>
+                  <div class="hero-mini-card__actions">
+                    <form method="post" action="{% url 'cart_add' slug=p.slug %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="qty" value="1">
+                      <button class="btn btn-primary" type="submit">В корзину</button>
+                    </form>
+                    <a class="btn btn-outline" href="{% url 'product_detail' slug=p.slug %}">Карточка</a>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-note">
+        <div class="hero-note__rating">
+          {% if site_profile %}
+            <strong>{{ site_profile.yandex_rating }} ★</strong>
+            <span>{{ site_profile.yandex_reviews_count }} отзывов</span>
+          {% else %}
+            <strong>4.9 ★</strong>
+            <span>Клиенты возвращаются за букетами снова</span>
+          {% endif %}
+        </div>
+        <div class="hero-note__contact">
+          {% if site_profile and site_profile.phone %}
+            <a href="tel:{{ site_profile.phone|cut:' ' }}">{{ site_profile.phone }}</a>
+          {% endif %}
+          {% if site_profile and site_profile.address %}
+            <span>{{ site_profile.address }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container highlight-grid">
+    <article class="highlight-card">
+      <span class="highlight-icon">🚚</span>
+      <div>
+        <h3>Быстрая доставка</h3>
+        <p>Доставим букет в удобный интервал и предупредим перед выездом курьера.</p>
+      </div>
+    </article>
+    <article class="highlight-card">
+      <span class="highlight-icon">🌿</span>
+      <div>
+        <h3>Свежие цветы</h3>
+        <p>Используем поставки дня и подбираем гармоничную композицию для каждого заказа.</p>
+      </div>
+    </article>
+    <article class="highlight-card">
+      <span class="highlight-icon">🎀</span>
+      <div>
+        <h3>Красивое оформление</h3>
+        <p>Ленты, бумага, открытки и готовые подарочные дополнения в одном месте.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="catalog" class="section">
+  <div class="container">
+      <div class="section-head">
+      <div>
+        <span class="eyebrow">Каталог</span>
+        <h2>Букеты и композиции для любого повода</h2>
+      </div>
+      <p class="section-copy">
+        В витрине уже {{ total_products }} позиций.
+        Выберите категорию, посмотрите хиты или сразу найдите нужный букет через поиск.
+      </p>
+    </div>
+
+    <div class="filters">
+      <a class="chip {% if selected_cat == 'all' %}active{% endif %}" href="?cat=all">Все товары</a>
+      {% for c in categories %}
+        <a class="chip {% if selected_cat == c.slug %}active{% endif %}" href="?cat={{ c.slug }}">
+          {% if c.icon %}{{ c.icon }} {% endif %}{{ c.name }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="category-grid" aria-label="Категории">
+      {% for c in categories %}
+        <a class="category-card" href="?cat={{ c.slug }}" aria-label="{{ c.name }}">
+          <div class="category-media">
+            {% if c.image %}
+              <img src="{{ c.image.url }}" alt="{{ c.name }}">
+            {% else %}
+              <div class="category-icon">{{ c.icon|default:"🌸" }}</div>
+            {% endif %}
+          </div>
+          <div class="category-body">
+            <div class="category-title">{{ c.name }}</div>
+            <div class="category-sub">{{ c.active_products_count }} товаров</div>
+            <div class="category-tone">Curated selection</div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    {% if hits %}
+      <div class="catalog-section-head">
+        <h3 class="section-title">Хиты продаж</h3>
+        <p class="section-caption">Самые популярные композиции, которые чаще всего выбирают для подарка.</p>
+      </div>
+      <ul class="product-grid">
+        {% for p in hits %}
+          {% include "catalog/_product_card.html" with p=p %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if news %}
+      <div class="catalog-section-head">
+        <h3 class="section-title">Новинки</h3>
+        <p class="section-caption">Новые позиции в витрине и свежие сезонные сочетания.</p>
+      </div>
+      <ul class="product-grid">
+        {% for p in news %}
+          {% include "catalog/_product_card.html" with p=p %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="catalog-section-head">
+      <h3 class="section-title">Вся витрина</h3>
+      <p class="section-caption">Добавьте в корзину или откройте карточку товара, чтобы оставить заявку флористу.</p>
+    </div>
+
+    <ul class="product-grid">
+      {% for p in page.object_list %}
+        {% include "catalog/_product_card.html" with p=p %}
+      {% empty %}
+        <li class="empty-grid-item">
+          <div class="empty-state">
+            <h3>Каталог почти готов</h3>
+            <p>Добавьте первые товары в админке или загрузите ассортимент, и витрина сразу оживет.</p>
+            <a class="btn btn-primary" href="{% url 'contact' %}">Связаться с флористом</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <nav class="pagination">
+      {% if page.has_previous %}
+        <a href="?cat={{ selected_cat }}&page={{ page.previous_page_number }}">← Предыдущая</a>
+      {% endif %}
+      <span class="small">Страница {{ page.number }} из {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}
+        <a href="?cat={{ selected_cat }}&page={{ page.next_page_number }}">Следующая →</a>
+      {% endif %}
+    </nav>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Почему выбирают нас</span>
+        <h2>Мы собираем букеты, которые выглядят дорого и дарят эмоции</h2>
+      </div>
+      <p class="section-copy">
+        Продумываем композицию, упаковку и впечатление от вручения, чтобы получатель запомнил этот подарок.
+      </p>
+    </div>
+
+    <div class="benefit-grid">
+      <article class="benefit-card">
+        <h3>Свежие поставки ежедневно</h3>
+        <p>Контролируем качество цветка и не держим в витрине уставшие позиции.</p>
+      </article>
+      <article class="benefit-card">
+        <h3>Подбор под повод и бюджет</h3>
+        <p>Соберем компактный знак внимания или эффектный букет для важного события.</p>
+      </article>
+      <article class="benefit-card">
+        <h3>Фото перед отправкой</h3>
+        <p>Покажем готовую композицию, чтобы вы были уверены в результате до доставки.</p>
+      </article>
+      <article class="benefit-card">
+        <h3>Подарки и допродажа</h3>
+        <p>Открытки, свечи, конфеты и мягкие дополнения можно добавить сразу к заказу.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="occasion" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Поводы</span>
+        <h2>Подберем букет под любую ситуацию</h2>
+      </div>
+      <p class="section-copy">
+        От дня рождения до нежного знака внимания без повода — у нас есть настроение и композиция под каждый случай.
+      </p>
+    </div>
+
+    <div class="occasion-grid">
+      <article class="occasion-card">
+        <h3>На день рождения</h3>
+        <p>Яркие и праздничные композиции, которые сразу создают настроение.</p>
+        <a href="#catalog">Смотреть букеты</a>
+      </article>
+      <article class="occasion-card">
+        <h3>Для любимой</h3>
+        <p>Романтичные сочетания, нежные оттенки и красивая упаковка.</p>
+        <a href="#catalog">Выбрать подарок</a>
+      </article>
+      <article class="occasion-card">
+        <h3>На свадьбу</h3>
+        <p>Композиции и букеты в спокойной палитре для особенных моментов.</p>
+        <a href="#catalog">Открыть коллекцию</a>
+      </article>
+      <article class="occasion-card">
+        <h3>Просто без повода</h3>
+        <p>Легкие, стильные букеты, чтобы порадовать близкого человека сегодня.</p>
+        <a href="{% url 'contact' %}">Подобрать с флористом</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Отзывы</span>
+        <h2>Нас рекомендуют друзьям и возвращаются снова</h2>
+      </div>
+      {% if site_profile %}
+        <p class="section-copy">Рейтинг магазина — {{ site_profile.yandex_rating }} ★ на основе {{ site_profile.yandex_reviews_count }} отзывов.</p>
+      {% endif %}
+    </div>
+
+    <div class="review-grid">
+      {% for r in reviews %}
+        <article class="review-card">
+          <div class="review-card__top">
+            <div>
+              <h3>{{ r.author }}</h3>
+              <time datetime="{{ r.created_at|date:'Y-m-d' }}">{{ r.created_at }}</time>
+            </div>
+            <span class="review-stars">{{ r.stars }} ★</span>
+          </div>
+          <p>{{ r.text }}</p>
+        </article>
+      {% empty %}
+        <article class="review-card review-card--empty">
+          <h3>Отзывы появятся здесь</h3>
+          <p>Добавьте первые реальные отзывы в админке, и этот блок сразу станет сильнее по доверию.</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container delivery-grid">
+    <article class="delivery-card">
+      <span class="eyebrow">Доставка и оплата</span>
+      <h2>Оформить заказ легко</h2>
+      <ul class="feature-list">
+        <li>Доставка по городу в удобный интервал.</li>
+        <li>Самовывоз, если хотите забрать букет лично.</li>
+        <li>Оплата онлайн или при получении.</li>
+        <li>Подтверждение состава и фото букета по запросу.</li>
+      </ul>
+    </article>
+    <article class="delivery-card delivery-card--accent">
+      <span class="eyebrow">Нужна помощь?</span>
+      <h2>Напишите флористу, и мы подберем букет под ваш бюджет</h2>
+      <p>Подскажем по цветам, подберем упаковку и предложим 2–3 варианта на выбор.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{% url 'contact' %}">Оставить заявку</a>
+        {% if site_profile and site_profile.phone %}
+          <a class="btn btn-outline" href="https://wa.me/{{ site_profile.phone|cut:' '|cut:'('|cut:')'|cut:'-'|cut:'+' }}">WhatsApp</a>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="contacts" class="section section-soft">
+  <div class="container contact-grid">
+    <div class="contact-card">
+      <span class="eyebrow">Контакты</span>
+      <h2>{{ site_profile.name|default:"Atrium Flowers" }}</h2>
+      {% if site_profile and site_profile.address %}<p class="contact-line">{{ site_profile.address }}</p>{% endif %}
+      {% if site_profile and site_profile.work_hours %}<p class="contact-line">{{ site_profile.work_hours }}</p>{% endif %}
+      {% if site_profile and site_profile.phone %}
+        <p class="contact-phone"><a href="tel:{{ site_profile.phone|cut:' ' }}">{{ site_profile.phone }}</a></p>
+      {% endif %}
+      <div class="contact-links">
+        {% if site_profile and site_profile.maps_url %}<a href="{{ site_profile.maps_url }}" target="_blank" rel="noopener">Построить маршрут</a>{% endif %}
+        {% if site_profile and site_profile.tg_url %}<a href="{{ site_profile.tg_url }}" target="_blank" rel="noopener">Telegram</a>{% endif %}
+        {% if site_profile and site_profile.vk_url %}<a href="{{ site_profile.vk_url }}" target="_blank" rel="noopener">VK</a>{% endif %}
+      </div>
+    </div>
+
+    <div class="contact-card contact-card--accent">
+      <span class="eyebrow">Связь с флористом</span>
+      <h2>Не знаете, что выбрать?</h2>
+      <p>Напишите нам, и мы предложим несколько вариантов: компактный, стандартный и премиальный.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{% url 'contact' %}">Открыть форму заказа</a>
+        <a class="btn btn-outline" href="#catalog">Смотреть каталог</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

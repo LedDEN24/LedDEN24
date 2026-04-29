@@ -1,0 +1,14 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="1400" rx="48" fill="#FFFCFB"/>
+<circle cx="370" cy="346" r="136" fill="#F2E7EA"/>
+<circle cx="602" cy="262" r="128" fill="#FFFFFF" stroke="#EBDDE1" stroke-width="10"/>
+<circle cx="844" cy="358" r="146" fill="#F6F1F3"/>
+<circle cx="474" cy="558" r="138" fill="#FFFFFF" stroke="#EBDDE1" stroke-width="10"/>
+<circle cx="726" cy="556" r="132" fill="#F3E8EC"/>
+<path d="M518 1008C500 924 474 840 442 758" stroke="#86A683" stroke-width="22" stroke-linecap="round"/>
+<path d="M602 1030C602 926 600 824 596 720" stroke="#72906D" stroke-width="22" stroke-linecap="round"/>
+<path d="M684 1006C708 916 746 830 796 744" stroke="#86A683" stroke-width="22" stroke-linecap="round"/>
+<rect x="390" y="982" width="424" height="214" rx="112" fill="#FBF3F5" stroke="#EBDDE1" stroke-width="14"/>
+<text x="600" y="1142" text-anchor="middle" fill="#8F7A82" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="700">Atrium Flowers</text>
+<text x="600" y="1218" text-anchor="middle" fill="#96858B" font-family="Inter, Arial, sans-serif" font-size="34">Soft White Composition</text>
+</svg>

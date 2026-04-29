@@ -1,0 +1,15 @@
+[Unit]
+Description=Цветочный Atrium (Telegram bot)
+After=network.target
+
+[Service]
+User=atrium
+Group=www-data
+WorkingDirectory=/home/atrium/app
+EnvironmentFile=/home/atrium/app/.env
+ExecStart=/home/atrium/app/venv/bin/python -m bot.runner
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

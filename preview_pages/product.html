@@ -1,0 +1,141 @@
+
+<!doctype html>
+<html lang="ru">
+<head><base href="http://127.0.0.1:8000/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Нежный пионовый букет — Atrium Flowers
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox__backdrop" data-lb-close></div>
+  <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+    <button type="button" class="lightbox__close" data-lb-close aria-label="Закрыть">✕</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="Предыдущее">‹</button>
+    <img class="lightbox__img" data-lb-img alt="Фото товара">
+    <button type="button" class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="Следующее">›</button>
+    <div class="lightbox__counter small" data-lb-counter></div>
+  </div>
+</div>
+
+</title>
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/light.css">
+  <link rel="stylesheet" href="/static/css/product.css">
+</head>
+<body>
+  
+<header class="main-header">
+  <div class="container header-row">
+    <a class="logo" href="/#about">Atrium Flowers</a>
+    <button class="nav-toggle" aria-label="Открыть меню">☰</button>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/#about">О магазине</a></li>
+        <li><a href="/#services">Каталог</a></li>
+        <li><a href="/#rating">Отзывы</a></li>
+        <li><a href="/#contacts">Контакты</a></li>
+      </ul>
+
+      <div class="mp-search" data-search>
+        <input class="mp-search__input" type="search" placeholder="Поиск: розы, пионы, коробка…" autocomplete="off" />
+        <div class="mp-search__dropdown" hidden></div>
+      </div>
+
+      <ul class="nav-actions">
+        <li><a href="/contact/">💬 Написать админу</a></li>
+        <li><a href="/cart/">Корзина (0)</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+    
+<div class="container product-detail">
+    <section class="gallery">
+    <div class="product-media">
+      
+        <img class="product-main-img" src="/media/products/prod1.png" alt="Нежный пионовый букет">
+      
+    </div>
+
+    
+      
+        <div class="thumbs" data-thumbs>
+          
+            <button type="button" class="thumb" data-img-src="/media/products/gallery/g1.png" aria-label="Фото 1">
+              
+                <img src="/media/products/gallery/g1.png" alt="Фото 1">
+              
+            </button>
+          
+            <button type="button" class="thumb" data-img-src="/media/products/gallery/g2.png" aria-label="Фото 2">
+              
+                <img src="/media/products/gallery/g2.png" alt="Фото 2">
+              
+            </button>
+          
+            <button type="button" class="thumb" data-img-src="/media/products/gallery/g3.png" aria-label="Фото 3">
+              
+                <img src="/media/products/gallery/g3.png" alt="Фото 3">
+              
+            </button>
+          
+        </div>
+      
+    
+  </section>
+
+  <section class="info">
+    <h1>Нежный пионовый букет</h1>
+    <p class="price">4590 ₽</p>
+
+    <form method="post" action="/lead/" class="lead-form">
+      <input type="hidden" name="csrfmiddlewaretoken" value="YWwXz42Taqvaw4I2gGAMQ2UDh9ujyVgfhshnbd0OCVCRyNRfZFqCtbk6bd3FkBq6">
+      <input type="hidden" name="product_slug" value="product-1">
+      <textarea class="input" name="comment" placeholder="Комментарий (необязательно)"></textarea>
+      <input class="input" name="name" placeholder="Имя (необязательно)">
+      <input class="input" name="phone" placeholder="Телефон">
+      <button class="btn btn-primary">Оставить заявку</button>
+    </form>
+
+    <div class="delivery small">
+      <p>Доставка курьером, 1 день — 350 ₽</p>
+    </div>
+
+    
+    <div class="location small">
+      Екатеринбург, Краснолесья 10/3
+    </div>
+    
+
+    <h2>Описание</h2>
+    <div class="description">Собран вручную, свежие цветы, открытка в подарок.</div>
+  </section>
+</div>
+
+  </main>
+  
+<footer class="footer">
+  <div class="container footer-row">
+    <div class="small">
+      
+        <div>Екатеринбург, Краснолесья 10/3</div>
+        <div>Ежедневно 09:00–22:00</div>
+      
+      <div class="footer-credit">
+        <a href="https://yandex.ru/business/" rel="nofollow">Сайт создан в Яндекс Бизнес</a>
+      </div>
+    </div>
+    <div class="small">
+      <a href="#" class="to-top" data-scroll-top>Наверх ↑</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/search.js" defer></script>
+  
+</body>
+</html>

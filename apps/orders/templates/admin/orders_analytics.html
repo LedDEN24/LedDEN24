@@ -1,0 +1,23 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Аналитика заказов и лидов</h1>
+<p>Период: {{ days }} дней</p>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:16px 0;">
+  <div style="padding:16px;border:1px solid #ddd;border-radius:12px;"><b>Заказов</b><br>{{ total_orders }}</div>
+  <div style="padding:16px;border:1px solid #ddd;border-radius:12px;"><b>Выручка</b><br>{{ revenue }} ₽</div>
+  <div style="padding:16px;border:1px solid #ddd;border-radius:12px;"><b>Средний чек</b><br>{{ avg_check }} ₽</div>
+  <div style="padding:16px;border:1px solid #ddd;border-radius:12px;"><b>Брошенные корзины</b><br>{{ abandoned_carts }}</div>
+</div>
+<h2>Воронка</h2>
+<ul>
+  <li>Просмотры товара: {{ funnel.product_view }}</li>
+  <li>Добавления в корзину: {{ funnel.add_to_cart }}</li>
+  <li>Начали оформление: {{ funnel.checkout_start }}</li>
+  <li>Оформили заказ: {{ funnel.checkout_submit }}</li>
+  <li>Оплаченные заказы: {{ funnel.paid_orders }}</li>
+</ul>
+<h2>Источники</h2>
+<table><tr><th>Источник</th><th>Заказы</th><th>Выручка</th></tr>{% for source, stat in source_stats %}<tr><td>{{ source }}</td><td>{{ stat.orders }}</td><td>{{ stat.revenue }} ₽</td></tr>{% endfor %}</table>
+<h2>Топ товаров</h2>
+<table><tr><th>Товар</th><th>Шт.</th><th>Выручка</th></tr>{% for p in top_products %}<tr><td>{{ p.title }}</td><td>{{ p.qty }}</td><td>{{ p.revenue }} ₽</td></tr>{% endfor %}</table>
+{% endblock %}

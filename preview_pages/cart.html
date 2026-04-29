@@ -1,0 +1,154 @@
+
+<!doctype html>
+<html lang="ru">
+<head><base href="http://127.0.0.1:8000/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Atrium Flowers</title>
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/light.css">
+  
+</head>
+<body>
+  
+<header class="main-header">
+  <div class="container header-row">
+    <a class="logo" href="/#about">Atrium Flowers</a>
+    <button class="nav-toggle" aria-label="Открыть меню">☰</button>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/#about">О магазине</a></li>
+        <li><a href="/#services">Каталог</a></li>
+        <li><a href="/#rating">Отзывы</a></li>
+        <li><a href="/#contacts">Контакты</a></li>
+      </ul>
+
+      <div class="mp-search" data-search>
+        <input class="mp-search__input" type="search" placeholder="Поиск: розы, пионы, коробка…" autocomplete="off" />
+        <div class="mp-search__dropdown" hidden></div>
+      </div>
+
+      <ul class="nav-actions">
+        <li><a href="/contact/">💬 Написать админу</a></li>
+        <li><a href="/cart/">Корзина (2)</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+    
+<div class="container">
+  <div class="cart">
+    <div class="cart-header">
+      <div>
+        <h1 style="margin:0; font-size:24px; letter-spacing:-0.02em;">Корзина</h1>
+        <div class="small">Проверьте количество и оформите заказ</div>
+      </div>
+      <a class="btn btn-light" href="/?cat=all">Продолжить покупки</a>
+    </div>
+
+    
+      <form method="post" action="/cart/update/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="w9ADRdaibqKbANLNSWvwuHaFlBaHZO8GqGfsVggb4IwqC1bqAG3Hnz2quGKGbSmI">
+
+        <div class="cart-list">
+          
+            <div class="cart-row">
+              <div class="cart-thumb">
+                
+                  <img src="/media/products/prod1.png" alt="Нежный пионовый букет">
+                
+              </div>
+
+              <div>
+                <div class="cart-title">
+                  <a href="/product/product-1/">Нежный пионовый букет</a>
+                </div>
+                <p class="cart-note">Букеты</p>
+              </div>
+
+              <div class="qty">
+                <input type="number" min="0" name="qty_product-1" value="1">
+              </div>
+
+              <div class="price">4590 ₽</div>
+
+              <button
+                class="icon-btn"
+                type="submit"
+                title="Удалить"
+                formaction="/cart/remove/product-1/"
+                formmethod="post"
+              >✕</button>
+            </div>
+          
+            <div class="cart-row">
+              <div class="cart-thumb">
+                
+                  <img src="/media/products/prod3.png" alt="Коробка с розами Premium">
+                
+              </div>
+
+              <div>
+                <div class="cart-title">
+                  <a href="/product/product-3/">Коробка с розами Premium</a>
+                </div>
+                <p class="cart-note">Композиции</p>
+              </div>
+
+              <div class="qty">
+                <input type="number" min="0" name="qty_product-3" value="1">
+              </div>
+
+              <div class="price">6990 ₽</div>
+
+              <button
+                class="icon-btn"
+                type="submit"
+                title="Удалить"
+                formaction="/cart/remove/product-3/"
+                formmethod="post"
+              >✕</button>
+            </div>
+          
+        </div>
+
+        <div class="cart-footer">
+          <div class="total">Итого: 11580 ₽</div>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <button class="btn btn-light" type="submit">Обновить</button>
+            <a class="btn" href="/checkout/">Оформить заказ</a>
+          </div>
+        </div>
+      </form>
+    
+  </div>
+</div>
+
+  </main>
+  
+<footer class="footer">
+  <div class="container footer-row">
+    <div class="small">
+      
+        <div>Екатеринбург, Краснолесья 10/3</div>
+        <div>Ежедневно 09:00–22:00</div>
+      
+      <div class="footer-credit">
+        <a href="https://yandex.ru/business/" rel="nofollow">Сайт создан в Яндекс Бизнес</a>
+      </div>
+    </div>
+    <div class="small">
+      <a href="#" class="to-top" data-scroll-top>Наверх ↑</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/search.js" defer></script>
+  
+</body>
+</html>
