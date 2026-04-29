@@ -64,56 +64,72 @@
           <a href="#catalog" class="hero-showcase__link">Открыть весь каталог</a>
         </div>
 
-        <div class="hero-showcase__grid">
-          <article class="hero-card">
-            <div class="hero-card__luxury-badge">Signature bouquet</div>
-            <div class="hero-card__media">
+        <div class="hero-showcase__marketplace">
+          <article class="hero-showcase__lead">
+            <div class="hero-showcase__lead-media">
               {% if hero_product and hero_product.image %}
                 <img src="{{ hero_product.image.url }}" alt="{{ hero_product.title }}">
               {% elif hero_product and hero_product.image_url %}
                 <img src="{{ hero_product.image_url }}" alt="{{ hero_product.title }}">
               {% else %}
-                <div class="hero-card__placeholder">Свежая цветочная витрина</div>
+                <div class="img-placeholder">Свежая цветочная витрина</div>
               {% endif %}
             </div>
-            <div class="hero-card__body">
-              <span class="hero-card__eyebrow">Выбор дня</span>
+            <div class="hero-showcase__lead-copy">
+              <span class="hero-showcase__kicker">Spotlight item</span>
               {% if hero_product %}
                 <h2>{{ hero_product.title }}</h2>
                 <p>
                   {% if hero_product.description %}
-                    {{ hero_product.description|striptags|truncatechars:130 }}
+                    {{ hero_product.description|striptags|truncatechars:140 }}
                   {% else %}
                     Нежная композиция, собранная флористом вручную и готовая к доставке сегодня.
                   {% endif %}
                 </p>
-                <div class="hero-card__footer">
-                  <strong>{{ hero_product.price }} ₽</strong>
-                  <a href="{% url 'product_detail' slug=hero_product.slug %}">Смотреть товар</a>
+                <div class="hero-showcase__meta">
+                  <span>Фото перед отправкой</span>
+                  <span>Фирменная упаковка</span>
+                  <span>Доставка сегодня</span>
                 </div>
-                <div class="hero-card__details">
-                  <span>Собран флористом вручную</span>
-                  <span>Оформление в boutique-стиле</span>
+                <div class="hero-showcase__lead-footer">
+                  <div class="hero-showcase__price">
+                    <strong>{{ hero_product.price }} ₽</strong>
+                    <span>Букет дня в витрине</span>
+                  </div>
+                  <div class="hero-showcase__actions">
+                    <form method="post" action="{% url 'cart_add' slug=hero_product.slug %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="qty" value="1">
+                      <button class="btn btn-primary" type="submit">В корзину</button>
+                    </form>
+                    <a class="btn btn-outline" href="{% url 'product_detail' slug=hero_product.slug %}">Карточка</a>
+                  </div>
                 </div>
               {% else %}
                 <h2>Подберем букет под ваш повод</h2>
                 <p>Соберем романтичный, праздничный или лаконичный вариант и поможем оформить заказ.</p>
-                <div class="hero-card__footer">
-                  <strong>от 2 490 ₽</strong>
-                  <a href="#catalog">Открыть каталог</a>
-                </div>
-                <div class="hero-card__details">
+                <div class="hero-showcase__meta">
                   <span>Свежая поставка ежедневно</span>
-                  <span>Premium-упаковка и открытка</span>
+                  <span>Premium-упаковка</span>
+                </div>
+                <div class="hero-showcase__lead-footer">
+                  <div class="hero-showcase__price">
+                    <strong>от 2 490 ₽</strong>
+                    <span>Актуальные позиции магазина</span>
+                  </div>
+                  <div class="hero-showcase__actions">
+                    <a class="btn btn-primary" href="#catalog">В каталог</a>
+                    <a class="btn btn-outline" href="{% url 'contact' %}">Спросить флориста</a>
+                  </div>
                 </div>
               {% endif %}
             </div>
           </article>
 
-          <div class="hero-showcase__rail">
-            {% for p in showcase_products %}
-              <a class="showcase-mini" href="{% url 'product_detail' slug=p.slug %}">
-                <div class="showcase-mini__media">
+          <div class="hero-showcase__track" data-showcase-slider>
+            {% for p in showcase_featured %}
+              <article class="hero-mini-card">
+                <a class="hero-mini-card__media" href="{% url 'product_detail' slug=p.slug %}">
                   {% if p.image %}
                     <img src="{{ p.image.url }}" alt="{{ p.title }}">
                   {% elif p.image_url %}
@@ -121,13 +137,13 @@
                   {% else %}
                     <div class="img-placeholder">Букет</div>
                   {% endif %}
-                </div>
-                <div class="showcase-mini__body">
-                  <div class="showcase-mini__topline">
-                    {% if p.category %}<span>{{ p.category.name }}</span>{% endif %}
-                    {% if p.is_hit %}<em>Хит</em>{% elif p.is_new %}<em>Новинка</em>{% endif %}
+                </a>
+                <div class="hero-mini-card__body">
+                  <div class="hero-mini-card__topline">
+                    {% if p.category %}<span class="hero-mini-card__label">{{ p.category.name }}</span>{% endif %}
+                    {% if p.is_hit %}<span class="hero-mini-card__badge">Хит</span>{% elif p.is_new %}<span class="hero-mini-card__badge">New</span>{% endif %}
                   </div>
-                  <strong>{{ p.title }}</strong>
+                  <h3><a href="{% url 'product_detail' slug=p.slug %}">{{ p.title }}</a></h3>
                   <p>
                     {% if p.description %}
                       {{ p.description|striptags|truncatechars:72 }}
@@ -135,12 +151,20 @@
                       Авторская композиция с деликатной упаковкой и живой подачей.
                     {% endif %}
                   </p>
-                  <div class="showcase-mini__footer">
-                    <span>{{ p.price }} ₽</span>
-                    <b>Смотреть</b>
+                  <div class="hero-mini-card__footer">
+                    <strong>{{ p.price }} ₽</strong>
+                    <span>В наличии</span>
+                  </div>
+                  <div class="hero-mini-card__actions">
+                    <form method="post" action="{% url 'cart_add' slug=p.slug %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="qty" value="1">
+                      <button class="btn btn-primary" type="submit">В корзину</button>
+                    </form>
+                    <a class="btn btn-outline" href="{% url 'product_detail' slug=p.slug %}">Карточка</a>
                   </div>
                 </div>
-              </a>
+              </article>
             {% endfor %}
           </div>
         </div>

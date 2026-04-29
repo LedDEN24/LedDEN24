@@ -37,7 +37,7 @@ def index(request):
     showcase_products_qs = products.order_by("-is_hit", "-is_new", "-created_at")
     if hero_product:
         showcase_products_qs = showcase_products_qs.exclude(pk=hero_product.pk)
-    showcase_products = list(showcase_products_qs[:4])
+    showcase_products = list(showcase_products_qs[:6])
 
     ctx = {
         "categories": categories,
