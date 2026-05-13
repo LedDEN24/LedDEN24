@@ -1,5 +1,5 @@
 from django.utils import timezone
-from rest_framework import decorators, response, viewsets
+from rest_framework import decorators, permissions, response, viewsets
 
 from .models import Notification
 from .serializers import NotificationSerializer
@@ -7,6 +7,7 @@ from .serializers import NotificationSerializer
 
 class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NotificationSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Notification.objects.filter(recipient=self.request.user)

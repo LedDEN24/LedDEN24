@@ -7,6 +7,7 @@ from .serializers import CashCollectionPointSerializer, CashMeetingSerializer
 
 class CashMeetingViewSet(viewsets.ModelViewSet):
     serializer_class = CashMeetingSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         qs = CashMeeting.objects.select_related("donation", "manager")
