@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Global Care Foundation - Trusted Charity Platform{% endblock %}
+{% block content %}
+<section class="relative overflow-hidden bg-gradient-to-br from-teal-950 via-slate-950 to-blue-950 text-white">
+  <div class="absolute inset-0 opacity-30 [background:radial-gradient(circle_at_20%_20%,#14b8a6,transparent_35%),radial-gradient(circle_at_80%_0%,#2563eb,transparent_30%)]"></div>
+  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-32">
+    <div>
+      <p class="mb-5 inline-flex rounded-full border border-white/20 px-4 py-2 text-sm text-teal-100">International NGO / Transparent Giving</p>
+      <h1 class="text-4xl font-black tracking-tight sm:text-6xl">{% trans "Help now. See every impact." %}</h1>
+      <p class="mt-6 max-w-xl text-lg text-slate-200">{% trans "A professional charity platform for verified projects, secure donations and transparent reporting across bank cards, crypto and cash requests." %}</p>
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+        <a href="#projects" class="rounded-full bg-white px-6 py-3 text-center font-semibold text-slate-950 shadow-xl">{% trans "Help now" %}</a>
+        <a href="{% url 'donate' %}" class="rounded-full border border-white/30 px-6 py-3 text-center font-semibold text-white hover:bg-white/10">{% trans "Make a donation" %}</a>
+      </div>
+    </div>
+    <div class="rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur">
+      <div class="grid gap-4 sm:grid-cols-3" id="impact">
+        <div class="rounded-3xl bg-white p-5 text-slate-950"><p class="text-sm text-slate-500">Collected</p><p class="mt-2 text-3xl font-black">${{ total_collected|floatformat:0 }}</p></div>
+        <div class="rounded-3xl bg-white p-5 text-slate-950"><p class="text-sm text-slate-500">Donors</p><p class="mt-2 text-3xl font-black">{{ donors_count }}</p></div>
+        <div class="rounded-3xl bg-white p-5 text-slate-950"><p class="text-sm text-slate-500">Completed</p><p class="mt-2 text-3xl font-black">{{ completed_projects }}</p></div>
+      </div>
+      <div class="mt-6 rounded-3xl bg-slate-950/70 p-5"><p class="text-sm text-teal-100">Security stack</p><div class="mt-4 grid grid-cols-2 gap-3 text-sm"><span>JWT</span><span>CSRF</span><span>Rate limiting</span><span>Audit logs</span><span>2FA admin</span><span>WebSockets</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p class="font-semibold text-brand">Verified programs</p><h2 class="mt-2 text-3xl font-black sm:text-4xl">Charity projects</h2></div><a href="{% url 'donate' %}" class="text-sm font-semibold text-brand">Donate to general fund -></a></div>
+  <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {% for project in featured_projects %}
+    <article class="group rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+      <div class="mb-5 h-40 rounded-3xl bg-gradient-to-br from-teal-100 to-blue-100 dark:from-teal-900 dark:to-blue-950"></div>
+      <p class="text-sm font-semibold text-brand">{{ project.location|default:"Global" }}</p>
+      <h3 class="mt-2 text-xl font-bold"><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></h3>
+      <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">{{ project.short_description }}</p>
+      <div class="mt-5"><div class="flex justify-between text-sm"><span>{{ project.raised_amount }} {{ project.currency }}</span><span>{{ project.progress_percent }}%</span></div><div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"><div class="h-full rounded-full bg-brand" style="width: {{ project.progress_percent }}%"></div></div></div>
+    </article>
+    {% empty %}
+    <div class="skeleton rounded-[2rem] p-10 md:col-span-3">Projects will appear here after moderator approval.</div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="bg-white py-20 dark:bg-slate-900">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    <div class="lg:col-span-1"><p class="font-semibold text-brand">Foundation news</p><h2 class="mt-2 text-3xl font-black">Latest updates</h2></div>
+    <div class="grid gap-5 lg:col-span-2">
+      {% for article in latest_news %}
+      <a href="{{ article.get_absolute_url }}" class="rounded-3xl border border-slate-200 p-6 transition hover:border-brand dark:border-slate-800"><p class="text-sm text-slate-500">{{ article.published_at|date:"M d, Y" }}</p><h3 class="mt-2 text-xl font-bold">{{ article.title }}</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{{ article.excerpt }}</p></a>
+      {% empty %}<div class="rounded-3xl border border-dashed border-slate-300 p-8 text-slate-500">No published news yet.</div>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div class="grid gap-6 lg:grid-cols-3">
+    <div class="rounded-[2rem] bg-brand p-8 text-white"><h3 class="text-2xl font-black">User stories</h3><p class="mt-4">“The transparent receipts and project progress helped our company run a trusted giving campaign.”</p><p class="mt-6 text-sm text-teal-100">Corporate donor</p></div>
+    <div id="faq" class="rounded-[2rem] border border-slate-200 p-8 dark:border-slate-800 lg:col-span-2"><h3 class="text-2xl font-black">FAQ</h3><dl class="mt-6 space-y-5"><div><dt class="font-semibold">How are payments verified?</dt><dd class="mt-1 text-sm text-slate-600 dark:text-slate-400">Financial managers review bank, crypto and cash evidence before approval.</dd></div><div><dt class="font-semibold">Can I donate anonymously?</dt><dd class="mt-1 text-sm text-slate-600 dark:text-slate-400">Yes, anonymous donations are supported with risk scoring for large operations.</dd></div></dl></div>
+  </div>
+</section>
+
+<section class="bg-slate-100 py-20 dark:bg-slate-900/60">
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <div><p class="font-semibold text-brand">Contacts</p><h2 class="mt-2 text-3xl font-black">Visit our coordination hub</h2><p class="mt-4 text-slate-600 dark:text-slate-400">Map placeholder is deployment-ready for Google Maps/OpenStreetMap embedding.</p></div>
+    <div class="grid h-72 place-items-center rounded-[2rem] bg-slate-300 text-slate-700 dark:bg-slate-800 dark:text-slate-300">Interactive map</div>
+  </div>
+</section>
+{% endblock %}

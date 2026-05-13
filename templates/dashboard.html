@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Donor dashboard - Global Care{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p class="font-semibold text-brand">Personal cabinet</p><h1 class="mt-2 text-3xl font-black">Welcome, {{ request.user.get_full_name|default:request.user.username }}</h1></div><a href="{% url 'donate' %}" class="rounded-full bg-brand px-5 py-3 text-center font-semibold text-white">New donation</a></div>
+  <div class="grid gap-6 lg:grid-cols-3">
+    <div class="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 lg:col-span-2"><h2 class="text-xl font-bold">Donation history</h2><div class="mt-5 overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="text-slate-500"><tr><th class="py-3">ID</th><th>Amount</th><th>Status</th><th>Project</th><th>Receipt</th></tr></thead><tbody class="divide-y divide-slate-100 dark:divide-slate-800">{% for donation in donations %}<tr><td class="py-3 font-mono">{{ donation.public_id }}</td><td>{{ donation.amount }} {{ donation.currency }}</td><td><span class="rounded-full bg-slate-100 px-3 py-1 text-xs dark:bg-slate-800">{{ donation.get_status_display }}</span></td><td>{{ donation.project.title|default:"General fund" }}</td><td>{% if donation.status == 'approved' %}<a class="text-brand" href="/api/donations/{{ donation.id }}/receipt/">PDF</a>{% else %}-{% endif %}</td></tr>{% empty %}<tr><td colspan="5" class="py-6 text-slate-500">No donations yet.</td></tr>{% endfor %}</tbody></table></div></div>
+    <aside class="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"><h2 class="text-xl font-bold">Notifications</h2><div class="mt-5 space-y-3">{% for item in notifications %}<div class="rounded-2xl bg-slate-50 p-4 text-sm dark:bg-slate-800"><p class="font-semibold">{{ item.title }}</p><p class="mt-1 text-slate-600 dark:text-slate-400">{{ item.body }}</p></div>{% empty %}<p class="text-sm text-slate-500">No notifications.</p>{% endfor %}</div></aside>
+  </div>
+</section>
+{% endblock %}

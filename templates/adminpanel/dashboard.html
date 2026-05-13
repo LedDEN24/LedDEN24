@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard - Global Care{% endblock %}
+{% block extra_head %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mb-8"><p class="font-semibold text-brand">Finance operations</p><h1 class="mt-2 text-3xl font-black">Admin dashboard</h1></div>
+  <div class="grid gap-6 md:grid-cols-4" id="admin-stat-cards"><div class="skeleton rounded-3xl p-6">Loading stats</div><div class="skeleton rounded-3xl p-6">Loading stats</div><div class="skeleton rounded-3xl p-6">Loading stats</div><div class="skeleton rounded-3xl p-6">Loading stats</div></div>
+  <div class="mt-8 grid gap-6 lg:grid-cols-3"><div class="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 lg:col-span-2"><h2 class="text-xl font-bold">Pending verification</h2><div class="mt-5 space-y-3">{% for donation in pending_donations %}<div class="flex flex-col justify-between gap-3 rounded-2xl bg-slate-50 p-4 dark:bg-slate-800 sm:flex-row sm:items-center"><div><p class="font-mono text-sm">{{ donation.public_id }}</p><p class="font-semibold">{{ donation.amount }} {{ donation.currency }} via {{ donation.get_method_display }}</p><p class="text-sm text-slate-500">Risk {{ donation.risk_score }} / {{ donation.suspicious_reason|default:"normal" }}</p></div><div class="flex gap-2"><button data-approve="{{ donation.id }}" class="rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white">Approve</button><button data-reject="{{ donation.id }}" class="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white">Reject</button></div></div>{% empty %}<p class="text-slate-500">No pending donations.</p>{% endfor %}</div></div><div class="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"><h2 class="text-xl font-bold">Payment methods</h2><canvas id="method-chart" class="mt-6"></canvas></div></div>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="/static/js/admin-dashboard.js"></script>{% endblock %}
