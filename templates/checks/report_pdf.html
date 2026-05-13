@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Отчет #{{ check.pk }}</title>
+</head>
+<body>
+  <h1>Отчет по проверке #{{ check.pk }}</h1>
+  <p><strong>Адрес:</strong> {{ check.address }}</p>
+  <p><strong>Кадастровый номер:</strong> {{ check.cadastral_number|default:"-" }}</p>
+  <p><strong>ФИО:</strong> {{ check.full_name|default:"-" }}</p>
+  <p><strong>Телефон:</strong> {{ check.phone|default:"-" }}</p>
+  <p><strong>Email:</strong> {{ check.email|default:"-" }}</p>
+  <p><strong>ИНН:</strong> {{ check.inn|default:"-" }}</p>
+  <p><strong>Risk score:</strong> {{ check.risk_score }}/100</p>
+
+  <h2>Риски</h2>
+  <ul>
+    {% for risk in risks %}
+      <li>{{ risk.title }} ({{ risk.get_severity_display }}, +{{ risk.weight }}): {{ risk.description }}</li>
+    {% empty %}
+      <li>Существенные риски не выявлены.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Результаты парсеров</h2>
+  <ul>
+    {% for result in parser_results %}
+      <li>{{ result.source }}: {{ result.get_status_display }}, совпадения: {{ result.matched_fields|join:", " }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

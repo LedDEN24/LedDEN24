@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Dashboard</h1>
+  <a class="btn btn-primary" href="{% url 'check-create' %}">Запустить проверку</a>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted">Всего проверок</div>
+      <div class="display-6">{{ total_checks }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted">Завершено</div>
+      <div class="display-6">{{ completed_checks }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted">Высокий риск</div>
+      <div class="display-6">{{ high_risk_checks }}</div>
+    </div></div>
+  </div>
+</div>
+<div class="card shadow-sm">
+  <div class="card-header">Последние проверки</div>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <thead><tr><th>Адрес</th><th>Статус</th><th>Risk score</th><th></th></tr></thead>
+      <tbody>
+      {% for check in recent_checks %}
+        <tr>
+          <td>{{ check.address }}</td>
+          <td><span class="badge bg-secondary">{{ check.get_status_display }}</span></td>
+          <td>{{ check.risk_score }}/100</td>
+          <td><a href="{{ check.get_absolute_url }}">Отчет</a></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4" class="text-muted">Проверок пока нет.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

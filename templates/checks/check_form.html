@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Новая проверка{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h4 mb-3">Запуск проверки</h1>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">{{ form.address.label_tag }}{{ form.address }}</div>
+          <div class="row">
+            <div class="col-md-6 mb-3">{{ form.cadastral_number.label_tag }}{{ form.cadastral_number }}</div>
+            <div class="col-md-6 mb-3">{{ form.inn.label_tag }}{{ form.inn }}</div>
+          </div>
+          <div class="mb-3">{{ form.full_name.label_tag }}{{ form.full_name }}</div>
+          <div class="row">
+            <div class="col-md-6 mb-3">{{ form.phone.label_tag }}{{ form.phone }}</div>
+            <div class="col-md-6 mb-3">{{ form.email.label_tag }}{{ form.email }}</div>
+          </div>
+          <button class="btn btn-primary" type="submit">Проверить</button>
+          <a class="btn btn-outline-secondary" href="{% url 'history' %}">История</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
