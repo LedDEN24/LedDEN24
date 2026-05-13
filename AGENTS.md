@@ -32,3 +32,5 @@ python manage.py runserver 0.0.0.0:8000
 - **Static files**: Served from `/workspace/static/` in dev mode (no `collectstatic` needed for development).
 - **Telegram bot**: Won't start without a valid `TG_BOT_TOKEN`; this is expected and does not block web development.
 - **Payment integration**: YooKassa gateway requires `YOOKASSA_SHOP_ID` and `YOOKASSA_SECRET_KEY` in `.env`; mocked in tests.
+- **System dependency**: `python3.12-venv` must be installed (`sudo apt-get install -y python3.12-venv`) before creating the virtualenv. The update script handles this automatically.
+- **`main` branch is empty**: Always work on a feature branch. The codebase (Django app, templates, static files) only exists on feature branches.
