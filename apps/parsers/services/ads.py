@@ -1,0 +1,20 @@
+from __future__ import annotations
+
+from apps.checks.models import Source
+
+from .common import ConfigurableSourceParser
+
+
+class AvitoParser(ConfigurableSourceParser):
+    source = Source.AVITO
+    risk_flags = ("duplicate_ads", "fake_listing", "price_anomaly")
+
+
+class CianParser(ConfigurableSourceParser):
+    source = Source.CIAN
+    risk_flags = ("duplicate_ads", "multiple_sales", "price_anomaly")
+
+
+class DomclickParser(ConfigurableSourceParser):
+    source = Source.DOMCLICK
+    risk_flags = ("duplicate_ads", "seller_mismatch", "price_anomaly")

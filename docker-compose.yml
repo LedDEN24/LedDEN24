@@ -1,0 +1,83 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: estate_guard
+      POSTGRES_USER: estate
+      POSTGRES_PASSWORD: estate
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  api:
+    build: .
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn estate_guard.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+
+  worker:
+    build: .
+    command: celery -A estate_guard worker --loglevel=INFO --concurrency=4
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+
+  beat:
+    build: .
+    command: celery -A estate_guard beat --loglevel=INFO
+    env_file: .env
+    depends_on:
+      - redis
+      - postgres
+
+  flower:
+    image: mher/flower:2.0
+    command: celery --broker=redis://redis:6379/1 flower --port=5555
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:10.4.2
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
