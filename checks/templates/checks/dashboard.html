@@ -1,0 +1,15 @@
+{% extends "checks/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Dashboard</h1>
+    <a class="btn btn-primary" href="{% url 'checks:check-create' %}">Запустить проверку</a>
+</div>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5>Всего проверок</h5><p class="display-6">{{ total_checks }}</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5>Высокий риск</h5><p class="display-6 text-danger">{{ high_risk_checks }}</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5>В работе</h5><p class="display-6">{{ running_checks }}</p></div></div></div>
+</div>
+<h2>Последние проверки</h2>
+{% include "checks/includes/check_table.html" with checks=latest_checks %}
+{% endblock %}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>{{ brand_name }}: отчет #{{ check.pk }}</title>
+</head>
+<body>
+    <h1>{{ brand_name }}: отчет проверки #{{ check.pk }}</h1>
+    <p><strong>Адрес:</strong> {{ check.address }}</p>
+    <p><strong>Кадастровый номер:</strong> {{ check.cadastral_number|default:"-" }}</p>
+    <p><strong>ФИО:</strong> {{ check.full_name }}</p>
+    <p><strong>Риск:</strong> {{ check.risk_score }}/100 ({{ check.get_risk_level_display }})</p>
+    <p>{{ check.summary }}</p>
+    <h2>Риски</h2>
+    <ul>
+        {% for risk in check.risks.all %}
+            <li>{{ risk.title }}: {{ risk.description }}</li>
+        {% empty %}
+            <li>Риски не найдены.</li>
+        {% endfor %}
+    </ul>
+    <h2>Источники</h2>
+    <ul>
+        {% for result in check.parser_results.all %}
+            <li>{{ result.get_source_display }}: {{ result.status }}, confidence {{ result.confidence }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
