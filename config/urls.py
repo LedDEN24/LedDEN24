@@ -22,7 +22,7 @@ api_patterns = [
     path("", include("apps.cash_requests.urls")),
     path("", include("apps.notifications.urls")),
     path("", include("apps.reports.urls")),
-    path("", include("apps.adminpanel.urls")),
+    path("", include("apps.adminpanel.api_urls")),
 ]
 
 urlpatterns = [
