@@ -57,9 +57,11 @@ asyncio_mode = "auto"
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+extend-exclude = ["*/migrations/*.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "DJ"]
+ignore = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"

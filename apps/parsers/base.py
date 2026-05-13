@@ -9,8 +9,6 @@ from typing import Any, Protocol
 import httpx
 from bs4 import BeautifulSoup
 
-from apps.checks.models import ParserResult, Source
-
 logger = logging.getLogger(__name__)
 
 
@@ -51,7 +49,7 @@ class ParserDependency(Protocol):
 
 
 class BaseParser:
-    source: Source
+    source: str
     endpoint_url: str = ""
     timeout_seconds = 20
     max_attempts = 3
@@ -71,7 +69,7 @@ class BaseParser:
         started = time.perf_counter()
         try:
             raw = await self.parse(context)
-            status = ParserResult.Status.SUCCESS if raw else ParserResult.Status.EMPTY
+            status = "success" if raw else "empty"
             normalized = self.normalize(raw)
             return ParserResultDTO(
                 source=self.source,
@@ -85,7 +83,7 @@ class BaseParser:
             logger.warning("captcha_required", extra={"source": self.source, "error": str(exc)})
             return ParserResultDTO(
                 source=self.source,
-                status=ParserResult.Status.CAPTCHA_REQUIRED,
+                status="captcha_required",
                 error=str(exc),
                 duration_ms=int((time.perf_counter() - started) * 1000),
             )
@@ -93,7 +91,7 @@ class BaseParser:
             logger.warning("parser_rate_limited", extra={"source": self.source, "error": str(exc)})
             return ParserResultDTO(
                 source=self.source,
-                status=ParserResult.Status.RATE_LIMITED,
+                status="rate_limited",
                 error=str(exc),
                 duration_ms=int((time.perf_counter() - started) * 1000),
             )
@@ -101,7 +99,7 @@ class BaseParser:
             logger.exception("parser_failed", extra={"source": self.source})
             return ParserResultDTO(
                 source=self.source,
-                status=ParserResult.Status.FAILED,
+                status="failed",
                 error=str(exc),
                 duration_ms=int((time.perf_counter() - started) * 1000),
             )

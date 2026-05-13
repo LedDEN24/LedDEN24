@@ -2,7 +2,17 @@ from __future__ import annotations
 
 from django.contrib import admin
 
-from .models import BankruptcyRecord, Check, CourtCase, Debt, Owner, ParserResult, Property, Risk, ScrapedAd
+from .models import (
+    BankruptcyRecord,
+    Check,
+    CourtCase,
+    Debt,
+    Owner,
+    ParserResult,
+    Property,
+    Risk,
+    ScrapedAd,
+)
 
 
 @admin.register(Property)

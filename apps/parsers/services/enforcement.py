@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-from apps.checks.models import Source
-
 from .common import ConfigurableSourceParser
 
 
 class FsspParser(ConfigurableSourceParser):
-    source = Source.FSSP
+    source = "fssp"
     risk_flags = ("debts", "enforcement_proceedings", "asset_seizure")
 
 
 class EnforcementDatabaseParser(ConfigurableSourceParser):
-    source = Source.ENFORCEMENT
+    source = "enforcement"
     risk_flags = ("debts", "active_proceedings")

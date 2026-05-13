@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import TypeAlias
 
 from .base import BaseParser
 from .infrastructure import CaptchaService, build_default_dependency
@@ -23,7 +22,7 @@ from .services import (
     TaxDataParser,
 )
 
-ParserClass: TypeAlias = type[BaseParser]
+type ParserClass = type[BaseParser]
 
 
 DEFAULT_PARSERS: tuple[ParserClass, ...] = (

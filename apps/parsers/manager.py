@@ -4,7 +4,7 @@ import asyncio
 import hashlib
 import json
 import logging
-from typing import Iterable
+from collections.abc import Iterable
 
 from django.conf import settings
 
@@ -24,7 +24,8 @@ class ParserManager:
     ) -> None:
         self.parsers = list(parsers) if parsers is not None else build_parsers()
         self.cache = cache or ParserCache()
-        self.max_concurrency = max_concurrency or getattr(settings, "PARSER_MAX_CONCURRENCY", 5)
+        concurrency = max_concurrency if max_concurrency is not None else settings.PARSER_MAX_CONCURRENCY
+        self.max_concurrency = int(concurrency)
 
     async def run_all(self, context: ParserContext) -> list[ParserResultDTO]:
         semaphore = asyncio.Semaphore(self.max_concurrency)

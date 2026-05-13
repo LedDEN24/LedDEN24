@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 from django.conf import settings
 from elasticsearch import Elasticsearch
@@ -18,15 +18,18 @@ class CheckSearchIndexer:
         self.client.index(index=self.index_name, id=str(check.id), document=self.document(check))
 
     def search(self, query: str, *, size: int = 20) -> dict[str, Any]:
-        return self.client.search(
-            index=self.index_name,
-            size=size,
-            query={
-                "multi_match": {
-                    "query": query,
-                    "fields": ["address", "cadastral_number", "risk_summary", "risks"],
-                }
-            },
+        return cast(
+            dict[str, Any],
+            self.client.search(
+                index=self.index_name,
+                size=size,
+                query={
+                    "multi_match": {
+                        "query": query,
+                        "fields": ["address", "cadastral_number", "risk_summary", "risks"],
+                    }
+                },
+            ),
         )
 
     @staticmethod
