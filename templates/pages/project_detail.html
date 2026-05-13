@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} - Global Charity{% endblock %}
+{% block content %}
+<section class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_380px] lg:px-8">
+  <article class="rounded-[2rem] bg-white p-8 shadow-sm dark:bg-slate-900">
+    <p class="font-semibold text-brand">{{ project.country }} {{ project.city }}</p>
+    <h1 class="mt-3 text-4xl font-black">{{ project.title }}</h1>
+    <p class="mt-5 text-lg text-slate-600 dark:text-slate-400">{{ project.summary }}</p>
+    <div class="prose mt-8 max-w-none dark:prose-invert">{{ project.description|linebreaks }}</div>
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold">Updates</h2>
+      <div class="mt-4 space-y-4">
+        {% for update in project.updates.all %}
+          <div class="rounded-2xl border p-5 dark:border-slate-800">
+            <p class="text-sm text-slate-500">{{ update.published_at|date:"d M Y" }}</p>
+            <h3 class="mt-1 font-bold">{{ update.title }}</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{{ update.body }}</p>
+          </div>
+        {% empty %}
+          <p class="text-slate-500">No updates yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </article>
+  <aside class="h-fit rounded-[2rem] border bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div class="mb-2 flex justify-between text-sm"><span>{{ project.collected_amount }} {{ project.currency }}</span><span>{{ project.progress_percent }}%</span></div>
+    <div class="h-4 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"><div class="h-full rounded-full bg-brand" style="width: {{ project.progress_percent }}%"></div></div>
+    <p class="mt-3 text-sm text-slate-500">Goal: {{ project.goal_amount }} {{ project.currency }}</p>
+    <a href="/#donate" class="mt-6 block rounded-full bg-brand px-6 py-3 text-center font-bold text-white">Donate to this project</a>
+  </aside>
+</section>
+{% endblock %}

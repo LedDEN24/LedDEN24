@@ -1,0 +1,1 @@
+"""Cash meeting requests app."""

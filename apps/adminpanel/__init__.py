@@ -1,0 +1,1 @@
+"""Extended administration app."""

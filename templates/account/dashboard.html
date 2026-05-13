@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Donor cabinet - Global Charity{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mb-8">
+    <p class="font-semibold text-brand">Donor cabinet</p>
+    <h1 class="mt-2 text-3xl font-black">Welcome, {{ request.user.get_full_name|default:request.user.email }}</h1>
+  </div>
+  <div class="grid gap-6 lg:grid-cols-[1fr_360px]">
+    <div class="rounded-[2rem] bg-white p-6 shadow-sm dark:bg-slate-900">
+      <h2 class="text-xl font-bold">Donation history</h2>
+      <div class="mt-5 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="text-slate-500"><tr><th class="py-3">Reference</th><th>Amount</th><th>Status</th><th>Receipt</th></tr></thead>
+          <tbody>
+            {% for donation in donations %}
+              <tr class="border-t dark:border-slate-800">
+                <td class="py-3 font-semibold">{{ donation.reference }}</td>
+                <td>{{ donation.amount }} {{ donation.currency }}</td>
+                <td><span class="rounded-full bg-slate-100 px-3 py-1 text-xs dark:bg-slate-800">{{ donation.get_status_display }}</span></td>
+                <td><a class="text-brand" href="/api/v1/donations/{{ donation.id }}/receipt/">PDF</a></td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="4" class="py-8 text-slate-500">You have not made donations yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <aside class="space-y-6">
+      <div class="rounded-[2rem] bg-white p-6 shadow-sm dark:bg-slate-900">
+        <h2 class="text-xl font-bold">Profile</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div class="flex justify-between"><dt>Email</dt><dd>{{ request.user.email }}</dd></div>
+          <div class="flex justify-between"><dt>Verified</dt><dd>{{ request.user.email_verified|yesno:"yes,no" }}</dd></div>
+          <div class="flex justify-between"><dt>Role</dt><dd>{{ request.user.get_role_display }}</dd></div>
+        </dl>
+      </div>
+      <div class="rounded-[2rem] bg-brand p-6 text-white">
+        <h2 class="text-xl font-bold">Realtime notifications</h2>
+        <p class="mt-3 text-sm text-teal-50">WebSocket channel: <code>/ws/notifications/</code></p>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

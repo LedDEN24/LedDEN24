@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  django-check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: charity
+          POSTGRES_USER: charity
+          POSTGRES_PASSWORD: charity
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U charity -d charity"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+    env:
+      DJANGO_SECRET_KEY: ci-secret
+      DJANGO_DEBUG: "true"
+      POSTGRES_DB: charity
+      POSTGRES_USER: charity
+      POSTGRES_PASSWORD: charity
+      POSTGRES_HOST: localhost
+      REDIS_URL: redis://localhost:6379/0
+      CELERY_BROKER_URL: redis://localhost:6379/1
+      CELERY_RESULT_BACKEND: redis://localhost:6379/2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python manage.py check --deploy
+      - run: python manage.py test

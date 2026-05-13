@@ -1,0 +1,78 @@
+{% load static i18n %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE|default:'ru' }}" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Global Charity Platform{% endblock %}</title>
+  <meta name="description" content="{% block description %}International NGO charity platform for trusted donations and transparent impact.{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}Global Charity Platform{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Secure donations, verified projects and transparent reports.{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/static/img/og-default.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: '#0f766e', accent: '#f59e0b' } } } };
+  </script>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased transition-colors dark:bg-slate-950 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="{% url 'home' %}" class="flex items-center gap-3 font-bold">
+        <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-teal-800/20">GC</span>
+        <span>Global Charity</span>
+      </a>
+      <div class="hidden items-center gap-7 text-sm font-medium md:flex">
+        <a href="#projects" class="hover:text-brand">{% trans "Projects" %}</a>
+        <a href="#impact" class="hover:text-brand">{% trans "Impact" %}</a>
+        <a href="#faq" class="hover:text-brand">FAQ</a>
+        <a href="#contacts" class="hover:text-brand">{% trans "Contacts" %}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="rounded-full border border-slate-300 px-3 py-2 text-sm dark:border-slate-700">Theme</button>
+        <a href="/api/v1/docs/" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-brand md:inline-flex">API</a>
+        <a href="#donate" class="rounded-full bg-brand px-5 py-2 text-sm font-bold text-white shadow-lg shadow-teal-700/20">{% trans "Donate" %}</a>
+      </div>
+    </nav>
+  </header>
+
+  {% if messages %}
+    <div class="fixed right-4 top-24 z-50 space-y-2">
+      {% for message in messages %}
+        <div class="rounded-2xl bg-white px-4 py-3 shadow-xl dark:bg-slate-900">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="border-t border-slate-200 bg-white py-10 dark:border-slate-800 dark:bg-slate-950">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
+      <div class="md:col-span-2">
+        <div class="mb-3 text-xl font-bold">Global Charity</div>
+        <p class="max-w-xl text-sm text-slate-600 dark:text-slate-400">Transparent international fundraising platform with verified projects, secure payment workflows, audit logs and real-time donor notifications.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">{% trans "Security" %}</h3>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li>CSRF, JWT, 2FA-ready</li>
+          <li>Rate limiting</li>
+          <li>Audit trails</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold">{% trans "Documents" %}</h3>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="/sitemap.xml">Sitemap</a></li>
+          <li><a href="/robots.txt">Robots</a></li>
+          <li><a href="/api/v1/docs/">Swagger/OpenAPI</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static 'js/site.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
